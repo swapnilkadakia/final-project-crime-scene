@@ -12,3 +12,5 @@ including, but not limited to assault, murder, verbal abuse and property damage.
 
 TIMELINE
 According to FBI statistics, Hate crimes in the United States have reached an all-time high. The most recent spike in hate crime heralds a new cruel landscape in which targeted attacks against victim groups not only result in spikes, but also widespread increases in the most violent crimes. This comes amid a rise in public and political discourse that devalues members of unfamiliar groups and to targeted aggression. We investigate the underlying tendency of hate crimes over the years, specifically from 1991 to 2020. To further glean a comprehensive understanding, we will explore specific patterns pertaining to an offender’s bias against a race or ethnicity, religion, disability, sexual orientation, gender, or gender identity. As a team, We seek to portray both the shift in patterns over time and the factors behind the shifts through each category of incidents. Therefore, we analyze the history of what some activists refer to as the “Hate Crime Epidemic” in the United States.
+
+(rough_sketches_proposal.jpg)
