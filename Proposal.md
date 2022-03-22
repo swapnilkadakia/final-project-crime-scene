@@ -1,7 +1,8 @@
 # Final Project Proposal
 
+Team Members:
 Aaron Ho
-Neema Nayek
+Neema Nayak
 Natasha Ninan
 Swapnil Kadakia
 
