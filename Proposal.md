@@ -1,9 +1,9 @@
 # Final Project Proposal
 
 Team Members:
-Aaron Ho
-Neema Nayak
-Natasha Ninan
+Aaron Ho,
+Neema Nayak,
+Natasha Ninan,
 Swapnil Kadakia
 
 **GitHub Repo URL**: https://github.com/CMU-IDS-2022/final-project-crime-scene
