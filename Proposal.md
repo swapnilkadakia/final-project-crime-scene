@@ -23,4 +23,4 @@ The ultimate goal of our project is to make this world a safer place where every
 Below, we have compiled a few ideas on the visualizations we aim to pursue to answer this data science problem. 
 ![rough sketch of potential ideas to show data](rough_sketches_proposal.jpg)
 
-#Sketches and Data Analysis
+<h1>Sketches and Data Analysis</h1>
