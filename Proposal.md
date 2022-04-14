@@ -20,8 +20,6 @@ The most recent spike in hate crime heralds a new cruel landscape in which targe
 
 The ultimate goal of our project is to make this world a safer place where every individual can express themselves and cultivate an unbiased society. We plan to use the feature importance of a predictive model to determine the relevant features/demographics which most influence the number of hate crimes in a region. With this, we can uncover the patterns of what some activists refer to as the "Hate Crime Epidemic" in the United States.
 
-Below, we have compiled a few ideas on the visualizations we aim to pursue to answer this data science problem. 
-![rough sketch of potential ideas to show data](rough_sketches_proposal.jpg)
 
 <h1>Sketches and Data Analysis</h1>
 
@@ -37,4 +35,4 @@ Show some screenshots of your data to demonstrate you have explored it.
   
 How will you display your data? What types of interactions will you support? 
 Provide some sketches that you have for the system design.
-
+![rough sketch of potential ideas to show data](rough_sketches_proposal.jpg)
