@@ -33,7 +33,7 @@ How will data processing be implemented?
 Show some screenshots of your data to demonstrate you have explored it.
 
 
-<h2>System Design<h2>
+<h2>System Design</h2>
   
 How will you display your data? What types of interactions will you support? 
 Provide some sketches that you have for the system design.
