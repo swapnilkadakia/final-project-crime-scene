@@ -24,3 +24,16 @@ Below, we have compiled a few ideas on the visualizations we aim to pursue to an
 ![rough sketch of potential ideas to show data](rough_sketches_proposal.jpg)
 
 <h1>Sketches and Data Analysis</h1>
+
+<h2>Data Processing</h2>
+
+Do you have to do substantial data cleanup?
+What quantities do you plan to derive from your data?
+How will data processing be implemented? 
+Show some screenshots of your data to demonstrate you have explored it.
+
+
+<h2>System Design<h2>
+How will you display your data? What types of interactions will you support? 
+Provide some sketches that you have for the system design.
+
