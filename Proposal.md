@@ -41,6 +41,10 @@ Upon further exploration of our dataset, we realized that many of the current ca
 
 <h3>Wellness Factors of US Cities Data</h3>
 
+To acquire a better understanding of what variables contribute to a rise in hate crime in a community, we need to know its demographics and other socioeconomic characteristics. We are using the data provided by “https://www.cityhealthdashboard.com/" to perform analysis and create visualizations for our project. 
+The dataset downloaded has a variety of metrics included such as Absenteeism , Broadband Connection, Breast Cancer Deaths, COVID Local Risk Index , Cardiovascular Disease Deaths which do not impact the hate crimes in the city and thus we have filtered those out. 
+Some cities in the dataset had multiple instances with the metric values for different groups such as gender, race and total population. We have considered only the total population of the city for our metric evaluation. There are also multiple columns in the dataset such as the numerator, denominator, low confidence interval which are not required for the scope of this project and have been dropped. The “est” column in the dataset provides us with the percentage of the population that holds the metric value true. For instance if the metric is “Racial/ethnic diversity” and the “est” value is 41.8, it means the city has a diversity score of 41.8. Lastly, we have dropped those rows that have a null “est” value as they do not assist in data visualization.
+
 
 From our exploration and data cleanup, we expect our data to be prepared to help address our data science problem. 
 
