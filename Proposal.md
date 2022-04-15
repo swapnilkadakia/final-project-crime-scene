@@ -49,4 +49,4 @@ From our exploration and data cleanup, we expect our data to be prepared to help
   
 How will you display your data? What types of interactions will you support? 
 Provide some sketches that you have for the system design.
-![rough sketch of potential ideas to show data](./images/rough_sketches_proposal.jpg)
+![clustering sketch](./images/clustering_sketch.jpg)
