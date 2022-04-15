@@ -115,12 +115,38 @@ The data will be displayed in the form of multiple charts which include bar grap
 
 <h4>1.	Heat Map of the United States based on the number of recorded cases</h4>
 <img width="396" alt="image" src="https://user-images.githubusercontent.com/90164318/163602909-d5fc3aa4-e40d-429b-82b4-b928fcc70bdf.png">
+The above heat maps highlight the number of recorded cases. California and New Jersey have the highest recorded crime cases.
+
+Reference: https://www.google.com/url?sa=i&url=https%3A%2F%2Frockcontent.com%2Fblog%2Fyou-are-here-using-maps-in-data-visualization%2F&psig=AOvVaw3Fz71blhi95An1Fhd5EMOm&ust=1650139925547000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCOCgvLLwlvcCFQAAAAAdAAAAABAD
+
 
 <h4>2.	Bubble Chart for Assault Types</h4>
 <img width="285" alt="image" src="https://user-images.githubusercontent.com/90164318/163602946-57f3d1ae-7e95-47e3-8438-2a4eb353f2cc.png">
+The above bubble chart highlights the distribution of types of crimes committed. Intimidation is the highest crime type committed.
+
+Reference: https://www.google.com/url?sa=i&url=https%3A%2F%2Finterworks.com%2Fblog%2Fccapitula%2F2015%2F01%2F06%2Ftableau-essentials-chart-types-packed-bubbles%2F&psig=AOvVaw0SEjKXDy0Ud6hD7iCLEh2w&ust=1650139973780000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCPDl7szwlvcCFQAAAAAdAAAAABAD
 
 <h4>3.	Heat Map mapping the ethnicity of the offender to the ethnicity of the victim they attacked</h4>
 <img width="353" alt="image" src="https://user-images.githubusercontent.com/90164318/163602992-860f2357-b507-4364-9f10-b4451d54b497.png">
+The above heat map shows the mapping of the race of the offender and the race of the victim. 
+
+Reference: https://www.google.com/url?sa=i&url=https%3A%2F%2Fkryotech.co.uk%2Fdata-visualization-for-beginners-part-3%2F&psig=AOvVaw1wTyzOPBppEPaZiTVrfkxS&ust=1650140066991000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCMCCt_nwlvcCFQAAAAAdAAAAABAD
+
+
+<h4>4.	Interaction</h4>
+Some of the interactions that will be included are a dropdown feature to select the state and display a pie chart that shows the distribution of various well-being factors of that state, and a dropdown feature to select a well-being factor and show its distribution among all the US states. 
+
+<h5>4.1	Dropdown of state name displaying well-being factors distribution</h5>
+<img width="408" alt="image" src="https://user-images.githubusercontent.com/90164318/163628826-2abe8727-5af8-4e27-b067-eab63602b8b1.png">
+
+<h5>4.2	Dropdown of well-being factors displaying state distribution</h5>
+<img width="272" alt="image" src="https://user-images.githubusercontent.com/90164318/163628836-8a46b1a2-b525-4cac-a628-3fefea2b4bff.png">
+
+<h5>4.3	Checkbox to select victim race and display recorded crime rates across the years</h5>
+<img width="369" alt="image" src="https://user-images.githubusercontent.com/90164318/163628847-c2bf24cb-2ecf-4d55-aae6-5c9f254fc2f7.png">
+
+
+
 
 
 One of the facets of the data science problem that we aimed to answer through our exploration and analysis was to determine which specific features were more influential in causing hate crimes. We aimed to look demographic information as well as circumstances surrounding who, where and how a crime was committed. Our purpose was to look for patterns or latent structures that can inform our understanding of hate crimes. Therefore, we intend to explore this through some dimensionality reduction and clustering techniques so that we can determine any informative features. Using GMM clustering grants us more flexibility regarding how patterns or clusters are formed and shaped as well being more relaxed in the how data points are assigned. We imagine our clustering to look similar to the sketch below with differing colors to indicate label assignments. To reduce the overall number of features needed to present this clustering, we also decided to use a drop-down menu so that users can select the type of features they want to explore in relation to hate crime occurrences.
