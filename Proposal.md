@@ -37,11 +37,11 @@ Since the FBI Hate Crime dataset formed the basis for our analysis, we had to un
 
 Upon further exploration of our dataset, we realized that many of the current categorical features made it difficult to pursue further analysis without further transformation. We adopted to use one hot encoding to transform our data into a binary representation. We wanted to do the same for other columns, but those columns seemed to indicate multilabeling. In these cases, we used the MultiLabelBinarizer from sklearn. This would allow us to give binary representation to multiple labels that a hate crime instance can have in a category. An example of this is shown below for the BIAS_DESC column.
 
-![MultiLabelBinarizer](./images/multilabel binarizier.PNG) 
+![MultiLabelBinarizer](./images/mlb.PNG) 
 
  Through these transformations, we expect that our features will be more expressive and we can further explore feature relationships in our visualizations. We also hope this will allow us to train predictive models on these categorical features. Our cleaned data for the FBI Hate Crimes dataset is shown below.
 
-![new features](./images/transformed dataframe.PNG) 
+![new features](./images/transformed_dataframe.PNG) 
 
 From our exploration and data cleanup, we expect our data to be prepared to help address our data science problem. 
 
