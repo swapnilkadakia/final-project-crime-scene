@@ -25,6 +25,8 @@ The ultimate goal of our project is to make this world a safer place where every
 
 <h2>Data Processing</h2>
 
+<h3> Hate_Crime Dataset </h3>
+
 Since the FBI Hate Crime dataset formed the basis for our analysis, we had to undergo substantial data processing on this dataset alone so that it is viable for our visualizations and modeling. In our first processing step, we remove unused features that may be redundant or uninformative for our intended analysis. For example, ‘ORI’ refers to a nine-character identifier for authorized agencies to access Criminal Justice Information (CJI) and ‘ADULT_OFFENDER_COUNT’ refers to the number of offenders out of the total, that are considered to be an adult. In the former, this is not very informative and will not affect our analysis and thus can be removed. In the latter, we removed this feature because we are mainly interested in the overall offender count and therefore this feature will not be used and can be removed. Following the removal of unnecessary features, we ensured that numeric features are set to the proper integer datatype as well as to the proper date datatype. Below is a screenshot of our updated features and their datatypes. 
 
 <img src="https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/main/images/new_features.PNG" width="250" height="250">
@@ -38,6 +40,17 @@ Upon further exploration of our dataset, we realized that many of the current ca
 <img src="https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/main/images/transformed_dataframe.PNG">
 
 From our exploration and data cleanup, we expect our data to be prepared to help address our data science problem. 
+
+<h3> City_Data Dataset </h3>
+
+To acquire a better understanding of what variables contribute to a rise in hate crime in a community, we need to know its demographics and other socioeconomic characteristics. We are using the data provided by “https://www.cityhealthdashboard.com/" to perform analysis and create visualizations for our project. 
+The dataset downloaded has a variety of metrics included such as Absenteeism , Broadband Connection, Breast Cancer Deaths, COVID Local Risk Index , Cardiovascular Disease Deaths which do not impact the hate crimes in the city and thus we have filtered those out. Some cities in the dataset had multiple instances with the metric values for different groups such as gender, race and total population. We have considered only the total population of the city for our metric evaluation. There are also multiple columns in the dataset such as the numerator, denominator, low confidence interval which are not required for the scope of this project and have been dropped. The “est” column in the dataset provides us with the percentage of the population that holds the metric value true. For instance if the metric is “Racial/ethnic diversity” and the “est” value is 41.8, it means the city has a diversity score of 41.8. Lastly, we have dropped those rows that have a null “est” value as they do not assist in data visualization.
+
+
+
+
+
+
 
 <h2>Data Exploration</h2>
 
