@@ -49,7 +49,16 @@ From our exploration and data cleanup, we expect our data to be prepared to help
 How will you display your data? What types of interactions will you support? 
 Provide some sketches that you have for the system design.
 
-The data will be displayed in the form of multiple charts which include bar graphs, line graphs, pie charts, bubble charts, and heat maps. Some of the sketches to represent the data are shown below:![image](https://user-images.githubusercontent.com/90164318/163602669-1a225c59-0ed5-4325-a0e2-7d595f2809c0.png)
+The data will be displayed in the form of multiple charts which include bar graphs, line graphs, pie charts, bubble charts, and heat maps. Some of the sketches to represent the data are shown below:
+
+<h4>1.	Heat Map of the United States based on the number of recorded cases</h4>
+<img width="396" alt="image" src="https://user-images.githubusercontent.com/90164318/163602909-d5fc3aa4-e40d-429b-82b4-b928fcc70bdf.png">
+
+<h4>2.	Bubble Chart for Assault Types</h4>
+<img width="285" alt="image" src="https://user-images.githubusercontent.com/90164318/163602946-57f3d1ae-7e95-47e3-8438-2a4eb353f2cc.png">
+
+<h4>3.	Heat Map mapping the ethnicity of the offender to the ethnicity of the victim they attacked</h4>
+<img width="353" alt="image" src="https://user-images.githubusercontent.com/90164318/163602992-860f2357-b507-4364-9f10-b4451d54b497.png">
 
 
 One of the facets of the data science problem that we aimed to answer through our exploration and analysis was to determine which specific features were more influential in causing hate crimes. We aimed to look demographic information as well as circumstances surrounding who, where and how a crime was committed. Our purpose was to look for patterns or latent structures that can inform our understanding of hate crimes. Therefore, we intend to explore this through some dimensionality reduction and clustering techniques so that we can determine any informative features. Using GMM clustering grants us more flexibility regarding how patterns or clusters are formed and shaped as well being more relaxed in the how data points are assigned. We imagine our clustering to look similar to the sketch below with differing colors to indicate label assignments. To reduce the overall number of features needed to present this clustering, we also decided to use a drop-down menu so that users can select the type of features they want to explore in relation to hate crime occurrences.
