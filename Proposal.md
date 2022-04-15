@@ -49,4 +49,4 @@ From our exploration and data cleanup, we expect our data to be prepared to help
   
 How will you display your data? What types of interactions will you support? 
 Provide some sketches that you have for the system design.
-![clustering sketch](./images/clustering_sketch.jpg | width=100)
+<img src="https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/main/images/clustering_sketch.jpg" width="100" height="100">
