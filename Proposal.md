@@ -64,7 +64,48 @@ The above line graph represents the total number of crimes committed per year fr
 
 
 
-<h3>2. Wellness Factors of Cities</h4>
+<h3>2. Wellness Factors of Cities</h3>
+
+<h4>2.1 High School Completion Factor across the states of the USA</h4>
+<img width="193" alt="image" src="https://user-images.githubusercontent.com/90164318/163625330-d07e48e0-6f80-47f0-a332-2a4beeb85df8.png">
+The above bar graph represents the high school completion rates across the United States. Minnesota has the highest high school completion rate of 98.3.
+
+<h4>2.2 Life Expectancy Factor across the states of the USA</h4>
+<img width="203" alt="image" src="https://user-images.githubusercontent.com/90164318/163625382-cd3309d4-4fdb-4403-b0d3-1db34e3c091c.png">
+The above bar graph represents the life expectancy rates across the United States. California has the highest life expectancy rate of 85.5. 
+
+<h4>2.3 Income Inequality Factor across the states of the USA</h4>
+<img width="232" alt="image" src="https://user-images.githubusercontent.com/90164318/163625428-48795423-8776-4076-8d6c-5fa863f7f93e.png">
+The above bar graph represents the income inequality rates across the United States. Washington has the highest income inequality rate of around 56. 
+
+<h4>2.4	Neighborhood racial/ethnic segregation Factor across the states of the USA</h4>
+<img width="224" alt="image" src="https://user-images.githubusercontent.com/90164318/163625484-d0e99aad-1719-4f98-b6f9-23ca7ff2a9e0.png">
+The above bar graph represents the neighborhood racial/ethnic segregation rates across the United States. Illinois has the highest neighborhood racial/ethnic segregation rate of 43.5. 
+
+<h4>2.5	Racial/Ethnic Diversity Factor across the states of the USA</h4>
+<img width="196" alt="image" src="https://user-images.githubusercontent.com/90164318/163625643-d917bedc-1d43-4be4-a62e-3b15e1c57731.png">
+The above bar graph represents the racial/ethnic diversity rates across the United States. California has the highest racial/ethnic diversity rate of 94.5.
+
+<h4>2.6	Unemployment Factor across the states of the USA</h4>
+<img width="186" alt="image" src="https://user-images.githubusercontent.com/90164318/163625674-05c59518-c32a-4b59-b9b1-e0361f070078.png">
+The above bar graph represents the unemployment rates across the United States. Michigan has the highest unemployment rate at 19.5. 
+
+<h4>2.7	Voilet Crimes Factor across the states of the USA</h4>
+<img width="215" alt="image" src="https://user-images.githubusercontent.com/90164318/163625688-bb50bf3a-25d0-4dcf-a868-6205a1b1f0c2.png">
+The above bar graph represents violent crime rates across the United States. Michigan has the highest violent crime of 1,920. 
+
+<h4>2.8	Uninsured Factor across the states of the USA</h4>
+<img width="207" alt="image" src="https://user-images.githubusercontent.com/90164318/163625715-fea94f5a-5da4-4691-aa58-f452d0cfd670.png">
+The above bar graph represents the uninsured rates across the United States. Texas has the highest uninsured rate at 35. 
+
+<h4>2.9	Binge Drinking across the states of the USA</h4>
+<img width="216" alt="image" src="https://user-images.githubusercontent.com/90164318/163625736-5db068c0-2928-4703-91b0-d0bc148982e4.png">
+The above bar graph represents the binge drinking rates across the United States. Iowa has the highest binge drinking rate at 26.5. 
+
+<h4>2.10	Housing Costs across the states of the USA</h4>
+<img width="211" alt="image" src="https://user-images.githubusercontent.com/90164318/163625766-a8dcc303-12d6-4be8-a596-d7080fbdf537.png">
+The above bar graph represents the housing costs across the United States. New Jersey has the highest housing costs rate at 59.5. 
+
 
 <h2>System Design</h2>
   
