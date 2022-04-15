@@ -25,11 +25,6 @@ The ultimate goal of our project is to make this world a safer place where every
 
 <h2>Data Processing</h2>
 
-Do you have to do substantial data cleanup?
-What quantities do you plan to derive from your data?
-How will data processing be implemented? 
-Show some screenshots of your data to demonstrate you have explored it.
-
 Since the FBI Hate Crime dataset formed the basis for our analysis, we had to undergo substantial data processing on this dataset alone so that it is viable for our visualizations and modeling. In our first processing step, we remove unused features that may be redundant or uninformative for our intended analysis. For example, ‘ORI’ refers to a nine-character identifier for authorized agencies to access Criminal Justice Information (CJI) and ‘ADULT_OFFENDER_COUNT’ refers to the number of offenders out of the total, that are considered to be an adult. In the former, this is not very informative and will not affect our analysis and thus can be removed. In the latter, we removed this feature because we are mainly interested in the overall offender count and therefore this feature will not be used and can be removed. Following the removal of unnecessary features, we ensured that numeric features are set to the proper integer datatype as well as to the proper date datatype. Below is a screenshot of our updated features and their datatypes. 
 
 <img src="https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/main/images/new_features.PNG" width="250" height="250">
@@ -44,10 +39,38 @@ Upon further exploration of our dataset, we realized that many of the current ca
 
 From our exploration and data cleanup, we expect our data to be prepared to help address our data science problem. 
 
+<h2>Data Exploration</h2>
+
+<h3>1. Hate Crime Dataset</h3>
+
+<h4>1.1 Total Recorded Crime Count per State</h4>
+
+<img width="468" alt="image" src="https://user-images.githubusercontent.com/90164318/163605570-e3f7ed19-f0eb-47ab-a03a-16eb83c1d63e.png">
+
+The above bar graph represents the total number of crimes committed per state in the United States. In terms of the crimes recorded from 1990 to 2020, California has the highest crime rate with over 35,000 crimes recorded.
+
+
+<h4>1.2 Total Recorded Crime Count per State</h4>
+
+
+<h3>2. Wellness Factors of Cities</h4>
+
 <h2>System Design</h2>
   
 How will you display your data? What types of interactions will you support? 
 Provide some sketches that you have for the system design.
+
+The data will be displayed in the form of multiple charts which include bar graphs, line graphs, pie charts, bubble charts, and heat maps. Some of the sketches to represent the data are shown below:
+
+<h4>1.	Heat Map of the United States based on the number of recorded cases</h4>
+<img width="396" alt="image" src="https://user-images.githubusercontent.com/90164318/163602909-d5fc3aa4-e40d-429b-82b4-b928fcc70bdf.png">
+
+<h4>2.	Bubble Chart for Assault Types</h4>
+<img width="285" alt="image" src="https://user-images.githubusercontent.com/90164318/163602946-57f3d1ae-7e95-47e3-8438-2a4eb353f2cc.png">
+
+<h4>3.	Heat Map mapping the ethnicity of the offender to the ethnicity of the victim they attacked</h4>
+<img width="353" alt="image" src="https://user-images.githubusercontent.com/90164318/163602992-860f2357-b507-4364-9f10-b4451d54b497.png">
+
 
 One of the facets of the data science problem that we aimed to answer through our exploration and analysis was to determine which specific features were more influential in causing hate crimes. We aimed to look demographic information as well as circumstances surrounding who, where and how a crime was committed. Our purpose was to look for patterns or latent structures that can inform our understanding of hate crimes. Therefore, we intend to explore this through some dimensionality reduction and clustering techniques so that we can determine any informative features. Using GMM clustering grants us more flexibility regarding how patterns or clusters are formed and shaped as well being more relaxed in the how data points are assigned. We imagine our clustering to look similar to the sketch below with differing colors to indicate label assignments. To reduce the overall number of features needed to present this clustering, we also decided to use a drop-down menu so that users can select the type of features they want to explore in relation to hate crime occurrences.
 <img src="https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/main/images/clustering_sketch.jpg" width="400" height="300">
