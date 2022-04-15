@@ -39,4 +39,4 @@ Upon further exploration of our dataset, we realized that many of the current ca
   
 How will you display your data? What types of interactions will you support? 
 Provide some sketches that you have for the system design.
-![rough sketch of potential ideas to show data](rough_sketches_proposal.jpg)
+![rough sketch of potential ideas to show data](./images/rough_sketches_proposal.jpg)
