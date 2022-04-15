@@ -32,16 +32,15 @@ Show some screenshots of your data to demonstrate you have explored it.
 
 Since the FBI Hate Crime dataset formed the basis for our analysis, we had to undergo substantial data processing on this dataset alone so that it is viable for our visualizations and modeling. In our first processing step, we remove unused features that may be redundant or uninformative for our intended analysis. For example, ‘ORI’ refers to a nine-character identifier for authorized agencies to access Criminal Justice Information (CJI) and ‘ADULT_OFFENDER_COUNT’ refers to the number of offenders out of the total, that are considered to be an adult. In the former, this is not very informative and will not affect our analysis and thus can be removed. In the latter, we removed this feature because we are mainly interested in the overall offender count and therefore this feature will not be used and can be removed. Following the removal of unnecessary features, we ensured that numeric features are set to the proper integer datatype as well as to the proper date datatype. Below is a screenshot of our updated features and their datatypes. 
 
-![new features](./images/new_features.PNG) 
-
+<img src="https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/main/images/new_features.PNG" width="250" height="250">
 
 Upon further exploration of our dataset, we realized that many of the current categorical features made it difficult to pursue further analysis without further transformation. We adopted to use one hot encoding to transform our data into a binary representation. We wanted to do the same for other columns, but those columns seemed to indicate multilabeling. In these cases, we used the MultiLabelBinarizer from sklearn. This would allow us to give binary representation to multiple labels that a hate crime instance can have in a category. An example of this is shown below for the BIAS_DESC column.
 
-![MultiLabelBinarizer](./images/mlb.PNG) 
+<img src="https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/main/images/mlb.PNG" width="250" height="250">
 
  Through these transformations, we expect that our features will be more expressive and we can further explore feature relationships in our visualizations. We also hope this will allow us to train predictive models on these categorical features. Our cleaned data for the FBI Hate Crimes dataset is shown below.
 
-![new features](./images/transformed_dataframe.PNG) 
+<img src="https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/main/images/transformed_dataframe.PNG" width="250" height="250">
 
 From our exploration and data cleanup, we expect our data to be prepared to help address our data science problem. 
 
@@ -49,4 +48,4 @@ From our exploration and data cleanup, we expect our data to be prepared to help
   
 How will you display your data? What types of interactions will you support? 
 Provide some sketches that you have for the system design.
-<img src="https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/main/images/clustering_sketch.jpg" width="100" height="100">
+<img src="https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/main/images/clustering_sketch.jpg" width="250" height="250">
