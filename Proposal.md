@@ -146,8 +146,6 @@ Some of the interactions that will be included are a dropdown feature to select 
 <img width="369" alt="image" src="https://user-images.githubusercontent.com/90164318/163628847-c2bf24cb-2ecf-4d55-aae6-5c9f254fc2f7.png">
 
 
-
-
-
+<h4>5. </h4>
 One of the facets of the data science problem that we aimed to answer through our exploration and analysis was to determine which specific features were more influential in causing hate crimes. We aimed to look demographic information as well as circumstances surrounding who, where and how a crime was committed. Our purpose was to look for patterns or latent structures that can inform our understanding of hate crimes. Therefore, we intend to explore this through some dimensionality reduction and clustering techniques so that we can determine any informative features. Using GMM clustering grants us more flexibility regarding how patterns or clusters are formed and shaped as well being more relaxed in the how data points are assigned. We imagine our clustering to look similar to the sketch below with differing colors to indicate label assignments. To reduce the overall number of features needed to present this clustering, we also decided to use a drop-down menu so that users can select the type of features they want to explore in relation to hate crime occurrences.
 <img src="https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/main/images/clustering_sketch.jpg" width="400" height="300">
