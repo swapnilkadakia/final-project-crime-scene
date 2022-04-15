@@ -43,6 +43,16 @@ From our exploration and data cleanup, we expect our data to be prepared to help
 
 <h3>1. Hate Crime Dataset</h3>
 
+<h4>1.1 Total Recorded Crime Count per State</h4>
+
+<img width="468" alt="image" src="https://user-images.githubusercontent.com/90164318/163605570-e3f7ed19-f0eb-47ab-a03a-16eb83c1d63e.png">
+
+The above bar graph represents the total number of crimes committed per state in the United States. In terms of the crimes recorded from 1990 to 2020, California has the highest crime rate with over 35,000 crimes recorded.
+
+
+<h4>1.2 Total Recorded Crime Count per State</h4>
+
+
 <h3>2. Wellness Factors of Cities</h4>
 
 <h2>System Design</h2>
