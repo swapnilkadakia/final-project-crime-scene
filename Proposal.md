@@ -52,7 +52,7 @@ The above bar graph represents the total number of crimes committed per state in
 
 <h4>1.2 Total Recorded Crime Count per Offfender's Race and Victim's Race</h4>
 
-![image](https://user-images.githubusercontent.com/90164318/163608760-04cf45a4-7118-423e-9b8c-1deff1566724.png)
+![WhatsApp Image 2022-04-14 at 10 35 40 PM](https://user-images.githubusercontent.com/90164318/163625827-e423aea6-370c-4434-a991-96e8e9fb49e5.jpeg)
 
 The above bar graphs represents the total number of crimes committed per offender racial group and per victim group in the United States. In terms of the crimes recorded from 1990 to 2020, most of the crimes that were recorded did not specify the offender’s race and were Anti-Black crimes committed against African Americans.
 
