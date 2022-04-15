@@ -25,11 +25,6 @@ The ultimate goal of our project is to make this world a safer place where every
 
 <h2>Data Processing</h2>
 
-Do you have to do substantial data cleanup?
-What quantities do you plan to derive from your data?
-How will data processing be implemented? 
-Show some screenshots of your data to demonstrate you have explored it.
-
 Since the FBI Hate Crime dataset formed the basis for our analysis, we had to undergo substantial data processing on this dataset alone so that it is viable for our visualizations and modeling. In our first processing step, we remove unused features that may be redundant or uninformative for our intended analysis. For example, ‘ORI’ refers to a nine-character identifier for authorized agencies to access Criminal Justice Information (CJI) and ‘ADULT_OFFENDER_COUNT’ refers to the number of offenders out of the total, that are considered to be an adult. In the former, this is not very informative and will not affect our analysis and thus can be removed. In the latter, we removed this feature because we are mainly interested in the overall offender count and therefore this feature will not be used and can be removed. Following the removal of unnecessary features, we ensured that numeric features are set to the proper integer datatype as well as to the proper date datatype. Below is a screenshot of our updated features and their datatypes. 
 
 <img src="https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/main/images/new_features.PNG" width="250" height="250">
@@ -43,6 +38,12 @@ Upon further exploration of our dataset, we realized that many of the current ca
 <img src="https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/main/images/transformed_dataframe.PNG">
 
 From our exploration and data cleanup, we expect our data to be prepared to help address our data science problem. 
+
+<h2>Data Exploration</h2>
+
+<h3>1. Hate Crime Dataset</h3>
+
+<h3>2. Wellness Factors of Cities</h4>
 
 <h2>System Design</h2>
   
