@@ -50,7 +50,18 @@ From our exploration and data cleanup, we expect our data to be prepared to help
 The above bar graph represents the total number of crimes committed per state in the United States. In terms of the crimes recorded from 1990 to 2020, California has the highest crime rate with over 35,000 crimes recorded.
 
 
-<h4>1.2 Total Recorded Crime Count per State</h4>
+<h4>1.2 Total Recorded Crime Count per Offfender's Race and Victim's Race</h4>
+
+![image](https://user-images.githubusercontent.com/90164318/163608760-04cf45a4-7118-423e-9b8c-1deff1566724.png)
+
+The above bar graphs represents the total number of crimes committed per offender racial group and per victim group in the United States. In terms of the crimes recorded from 1990 to 2020, most of the crimes that were recorded did not specify the offender’s race and were Anti-Black crimes committed against African Americans.
+
+<h4>1.3 Total Recorded Crimes per Year</h4>
+
+<img width="306" alt="image" src="https://user-images.githubusercontent.com/90164318/163608990-fcc41e6b-40cc-4754-887a-b13ed3e507db.png">
+
+The above line graph represents the total number of crimes committed per year from 1990 to 2020 in the United States. The maximum number of crimes were committed in the year 2020 with a value close to 14,000.
+
 
 
 <h3>2. Wellness Factors of Cities</h4>
