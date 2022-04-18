@@ -25,8 +25,7 @@ def load_data():
     df = cp.prep_fbi_dataset()
     return df
     
-st.title("Exploratory Data Analysis")
-st.write("*Note: this data reflects the metrics collected as of 2021 and may reflect missing data points from previous years.")
+st.title("Application")
 with st.spinner(text="Loading data..."):
     df = load_data()
 
