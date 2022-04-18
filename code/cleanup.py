@@ -41,7 +41,7 @@ def prep_fbi_dataset():
     for l in b:
         df[l] = [set(lbl.split(";")) for lbl in df[l]]
         mlb.fit_transform(df[l].tolist())
-        mb = pd.DataFrame(mlb.fit_transform(df[l].tolist()),columns=np.char.add(l +"_", mlb.classes_))
+        mb = pd.DataFrame(mlb.fit_transform(df[l].tolist()),columns=mlb.classes_)
         df = pd.concat([df, mb], axis=1)
         df.drop(columns=l,inplace=True)
         
