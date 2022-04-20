@@ -28,10 +28,13 @@ def load_data():
 st.title("Application")
 with st.spinner(text="Loading data..."):
     df = load_data()
-
-# Printing out the first 5 rows of the dataframe
-
 st.write(df.head())
+
+selection = st.selectbox("Select feature",options = ['Bias','Crime','Location'])
+
+if selection:
+    selection = [selection]
+    st.write(selection)
 
 
 
