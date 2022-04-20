@@ -64,11 +64,11 @@ st.write(df.head())
 
 selection = st.selectbox("Select feature",options = ['Bias','Crime','Location'])
 
+#make selection for clustering
 if selection:
     cluster = plot_cluster(selection)
-    
-st.write(selection)
-st.write(cluster)
+    st.write(selection)
+    st.write(cluster)
 
 
 
