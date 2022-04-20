@@ -13,11 +13,13 @@ from sklearn.cluster import DBSCAN
 from sklearn.manifold import TSNE
 
 
+@st.cache
 def load_data():
     # cp.prep_fbi_dataset()
     df = cp.prep_fbi_dataset()
     return df
 
+@st.cache(allow_output_mutation=True)
 def plot_cluster(selection):
     #partition dataframe depending on 
     if selection == 'Bias':
@@ -29,16 +31,19 @@ def plot_cluster(selection):
     elif selection == 'Location':
         X = df.iloc[:,110:].to_numpy()
         labels = df.columns[110:]
+    elif selection == 'Offender Race':
+        X = df.iloc[:,10:18].to_numpy()
+        labels = df.columns[10:18]
 
     np.random.seed(0)
-    random_sample = np.random.permutation(len(X))[:5000]
+    random_sample = np.random.permutation(len(X))[:1000]
     X = X[random_sample]
 
     #Dimensionality Reduction
-    X_tsne2d = umap.UMAP(densmap=True,n_components=2,random_state=0).fit_transform(X)
+    X_tsne2d = umap.UMAP(densmap=True,n_components=2,n_neighbors=2,random_state=0).fit_transform(X)
 
     #Clustering
-    dbscan = DBSCAN(min_samples=200, eps=1)
+    dbscan = DBSCAN(min_samples=10, eps=1)
     dbscan_cluster_assignments = dbscan.fit_predict(X_tsne2d)
     inliers = dbscan_cluster_assignments != -1
 
@@ -48,7 +53,7 @@ def plot_cluster(selection):
     assign = data['Assign']
     data['total_count'] = [total_counts.get(a) for a in assign]
     data['common_indicator'] = [labels[np.argmax(X[dbscan_cluster_assignments == i].sum(axis=0))] for i in dbscan_cluster_assignments[inliers]]
-    chart = alt.Chart(data,title='Clustering Bias').mark_point().encode(
+    chart = alt.Chart(data,title='{}'.format(selection)).mark_point().encode(
         alt.X("X"),
         alt.Y("Y"),
         alt.Color("Assign:N",legend=alt.Legend(title="Clusters")),
@@ -58,11 +63,12 @@ def plot_cluster(selection):
     return chart
     
 st.title("Application")
+
 with st.spinner(text="Loading data..."):
     df = load_data()
 st.write(df.head())
 
-selection = st.selectbox("Select feature",options = ['Bias','Crime','Location'])
+selection = st.selectbox("Select feature",options = ['Bias','Crime','Location','Offender Race'])
 
 #make selection for clustering
 if selection:
