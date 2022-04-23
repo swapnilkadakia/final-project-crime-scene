@@ -126,9 +126,6 @@ selection = st.multiselect("Select your features",options = ['Bias','Crime','Loc
 #make selection for clustering
 if selection:
     cluster = plot_cluster(selection)
-    st.write(type(selection))
-    st.write(len(selection))
-
     st.write(cluster)
 
 
