@@ -21,19 +21,67 @@ def load_data():
 
 @st.cache(allow_output_mutation=True)
 def plot_cluster(selection):
-    #partition dataframe depending on 
-    if selection == 'Bias':
-        X = df.iloc[:,75:110].to_numpy()
-        labels = df.columns[75:110]
-    elif selection == 'Crime':
-        X = df.iloc[:,18:75].to_numpy()
-        labels = df.columns[18:75]
-    elif selection == 'Location':
-        X = df.iloc[:,110:].to_numpy()
-        labels = df.columns[110:]
-    elif selection == 'Offender Race':
-        X = df.iloc[:,10:18].to_numpy()
-        labels = df.columns[10:18]
+    #partition dataframe depending on selection
+    bias = df.iloc[:,75:110]
+    bias_labels = df.columns[75:110]
+
+    crime = df.iloc[:,18:66]
+    crime_labels = df.columns[18:66]
+
+    victim_type = df.iloc[:,66:75]
+    victim_type_labels = df.columns[66:75]
+
+    location = df.iloc[:,110:]
+    location_labels = df.columns[110:]
+
+    offender = df.iloc[:,10:18]
+    offender_labels = df.columns[10:18]
+    offender_labels = np.array([i[14:] for i in offender_labels])
+
+
+    num_indicators = len(selection)
+    if num_indicators == 1:
+        if selection[0] == 'Bias':
+            X = bias.to_numpy()
+            labels = bias_labels
+        elif selection[0] == 'Crime':
+            X = crime.to_numpy()
+            labels = crime_labels
+        elif selection[0] == 'Location':
+            X = location.to_numpy()
+            labels = location_labels
+        elif selection[0] == 'Offender Race':
+            X = offender.to_numpy()
+            labels = offender_labels
+    else:
+        for idx,s in enumerate(selection):
+            if idx == 0:
+                if s == 'Bias':
+                    X = bias.to_numpy()
+                    labels = bias_labels
+                elif s == 'Crime':
+                    X = crime.to_numpy()
+                    labels = crime_labels
+                elif s == 'Location':
+                    X = location.to_numpy()
+                    labels = location_labels
+                elif s == 'Offender Race':
+                    X = offender.to_numpy()
+                    labels = offender_labels
+            else:
+                if s == 'Bias':
+                    X = np.concatenate((X,bias.to_numpy()),axis=1)
+                    labels =  np.concatenate((labels,bias_labels))
+                elif s == 'Crime':
+                    X = np.concatenate((X,crime.to_numpy()),axis=1)
+                    labels =  np.concatenate((labels,crime_labels))
+                elif s == 'Location':
+                    X = np.concatenate((X,location.to_numpy()),axis=1)
+                    labels =  np.concatenate((labels,location_labels))
+                elif s == 'Offender Race':
+                    X = np.concatenate((X,offender.to_numpy()),axis=1)
+                    labels =  np.concatenate((labels,offender_labels))
+    
 
     np.random.seed(0)
     random_sample = np.random.permutation(len(X))[:1000]
@@ -52,13 +100,18 @@ def plot_cluster(selection):
     total_counts = data['Assign'].value_counts()
     assign = data['Assign']
     data['total_count'] = [total_counts.get(a) for a in assign]
-    data['common_indicator'] = [labels[np.argmax(X[dbscan_cluster_assignments == i].sum(axis=0))] for i in dbscan_cluster_assignments[inliers]]
+    if len(selection) == 1:
+        data['common_indicator'] = [labels[np.argmax(X[dbscan_cluster_assignments == i].sum(axis=0))] for i in dbscan_cluster_assignments[inliers]]
+    else:
+        data['common_indicator'] = [labels[np.sort(np.argsort(-X[dbscan_cluster_assignments == i].sum(axis=0))[0:(num_indicators)])].tolist() for i in dbscan_cluster_assignments[inliers]]
     chart = alt.Chart(data,title='{}'.format(selection)).mark_point().encode(
         alt.X("X"),
         alt.Y("Y"),
         alt.Color("Assign:N",legend=alt.Legend(title="Clusters")),
         alt.Tooltip(["Assign",'total_count','common_indicator'])
-    )
+    ).properties(
+    width=500,
+    height=500)
 
     return chart
     
@@ -68,12 +121,14 @@ with st.spinner(text="Loading data..."):
     df = load_data()
 st.write(df.head())
 
-selection = st.selectbox("Select feature",options = ['Bias','Crime','Location','Offender Race'])
+selection = st.multiselect("Select your features",options = ['Bias','Crime','Location','Offender Race'])
 
 #make selection for clustering
 if selection:
     cluster = plot_cluster(selection)
-    st.write(selection)
+    st.write(type(selection))
+    st.write(len(selection))
+
     st.write(cluster)
 
 
