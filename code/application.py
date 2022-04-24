@@ -53,6 +53,9 @@ def plot_cluster(selection):
         elif selection[0] == 'Offender Race':
             X = offender.to_numpy()
             labels = offender_labels
+        elif selection[0] == 'Victim Type':
+            X = victim_type.to_numpy()
+            labels = victim_type_labels
     else:
         for idx,s in enumerate(selection):
             if idx == 0:
@@ -68,6 +71,9 @@ def plot_cluster(selection):
                 elif s == 'Offender Race':
                     X = offender.to_numpy()
                     labels = offender_labels
+                elif s == 'Victim Type':
+                    X = victim_type.to_numpy()
+                    labels = victim_type_labels
             else:
                 if s == 'Bias':
                     X = np.concatenate((X,bias.to_numpy()),axis=1)
@@ -81,6 +87,9 @@ def plot_cluster(selection):
                 elif s == 'Offender Race':
                     X = np.concatenate((X,offender.to_numpy()),axis=1)
                     labels =  np.concatenate((labels,offender_labels))
+                elif s == 'Victim Type':
+                    X = np.concatenate((X,victim_type.to_numpy()),axis=1)
+                    labels =  np.concatenate((labels,victim_type_labels))
     
 
     np.random.seed(0)
@@ -121,7 +130,7 @@ with st.spinner(text="Loading data..."):
     df = load_data()
 st.write(df.head())
 
-selection = st.multiselect("Select your features",options = ['Bias','Crime','Location','Offender Race'])
+selection = st.multiselect("Select your features",options = ['Bias','Crime','Location','Offender Race','Victim Type'])
 
 #make selection for clustering
 if selection:
