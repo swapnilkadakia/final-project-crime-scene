@@ -223,6 +223,7 @@ click = alt.selection_multi(fields=['state'])
 displayUSMap = alt.Chart(states).mark_geoshape().encode(
     color=alt.Color('Frequency:Q', title = "No. of cases"),         
     tooltip=['Frequency:Q', alt.Tooltip('Frequency:Q')],    
+    opacity = alt.condition(click, alt.value(1), alt.value(0.2)),
 ).properties(
     title = "Choropleth Map of the US on the number of recorded cases per State"  
 ).transform_lookup(
@@ -234,7 +235,18 @@ displayUSMap = alt.Chart(states).mark_geoshape().encode(
 ).add_selection(click).project(
     type='albersUsa'
 )
-st.write(displayUSMap)
+
+bars = (
+    alt.Chart(
+        df.nlargest(15, 'Frequency'),
+        title='Top 15 states by population').mark_bar().encode(
+    x='Frequency',
+    opacity=alt.condition(click, alt.value(1), alt.value(0.2)),
+    color='Frequency',
+    y=alt.Y('state', sort='x'))
+.add_selection(click))
+
+st.write(displayUSMap & bars)    
 
 #Reference for Interaction: https://stackoverflow.com/questions/63751130/altair-choropleth-map-color-highlight-based-on-line-chart-selection
 
@@ -271,6 +283,30 @@ heatmap1 = alt.Chart(df_HeatMap).mark_rect(
     titleFontSize=18    
 )
 st.write(heatmap1)
+
+
+#Pie Chart 
+alt.data_transformers.disable_max_rows()
+df1 = pd.read_csv("https://raw.githubusercontent.com/CMU-IDS-2022/final-project-crime-scene/main/data/city_data.csv")
+df2 = df1.pivot_table(index=['state_abbr','metric_name'],values = 'est',aggfunc=np.mean).reset_index()
+
+
+i = 0
+value = []
+while i<df2.shape[0]:
+    #State name on click
+    if df2.iloc[i]['state_abbr']=='WY':
+        if df2.iloc[i]['metric_name']!='Violent crime':
+            value.append(df2.iloc[i]['est'])
+    i+=1    
+source = pd.DataFrame({"Factors": ['High school completion', 'Income Inequality', 'Life expectancy', 'Neighborhood racial/ethnic segregation', 'Racial/ethnic diversity', 'Unemployment - annual, neighborhood-level', 'Uninsured'], "value": value})
+pie = (alt.Chart(source).mark_arc().encode(
+    theta=alt.Theta(field="value", type="quantitative"),
+    color=alt.Color(field="Factors", type="nominal"),
+    tooltip = [alt.Tooltip('value')]
+).properties(
+    title = "Well-Being Factors Distribution for the State"
+))
     
  #Clustering   
 st.header("Clustering on Hate Crimes")
