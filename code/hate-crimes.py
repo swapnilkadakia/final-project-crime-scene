@@ -136,7 +136,36 @@ if additional:
     st.selectbox("Select your features",options=["Wellness Factor"])
     
 
+# #Feature Importance
+# state = st.text_input("Enter 2 letter state abbreviation")
 
+# #City Visualization
+# df = df_city
+# #selecting only the cities in the selected state
+# df.drop(df[df['STATE_ABBR'] != state].index, inplace = True) 
+# st.write("Enter one of the following cities in " + state)
+# st.write(df['City'])
+
+# #select the city for which you want to see the factors
+# city = st.text_input("Enter city name")
+# if( city in df.values  ):
+#     df.drop(df[df['City'] != city].index, inplace = True)
+#     print(df.head())
+#     source = pd.DataFrame({
+#         'X' : ['High School Completion','Income Inequality','Life Expectancy','Racial Segregation','Racial Diversity','Unemployment','Uninsured'],
+#         'Y': [df['High School Completion'].tolist()[0],df['Income Inequality'].tolist()[0], df['Life Expectancy'].tolist()[0], df['Neighborhood racial/ethnic segregation'].tolist()[0], df['Racial/ethnic diversity'].tolist()[0], df['Unemployment - annual, neighborhood-level'].tolist()[0], df['Uninsured'].tolist()[0] ],
+#         })
+#     hist = alt.Chart(source).mark_bar().encode(
+#         x='X',
+#         y='Y'
+#     ).properties(
+#         width=500,
+#         height=800)
+        
+#     st.header("Visualizing features in a city")
+#     st.write(hist)
+# else:
+#     st.write("Please choose a city from th list provided")
 
 selection = st.multiselect("Select your features",options = ['Bias','Crime','Location','Offender Race','Victim Type'])
 
