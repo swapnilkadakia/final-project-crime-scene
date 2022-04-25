@@ -188,6 +188,42 @@ bars = (
 .add_selection(click))
             
 st.write(displayUSMap & bars)    
+#Reference for Interaction: https://stackoverflow.com/questions/63751130/altair-choropleth-map-color-highlight-based-on-line-chart-selection
+
+# Plotting the Offender Race vs Victim's Hate Crime 
+df_HeatMap = df_hate[['BIAS_DESC','OFFENDER_RACE']].copy()
+df_HeatMap = df_HeatMap.dropna()
+df_HeatMap['VictimHateCrime'] = pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Indian"), 'Anti-Indian',
+                                pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Arab"), 'Anti-Arab',
+                                pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Asian"), 'Anti-Asian',
+                                pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Bisexual"), 'Anti-Sexual Orientation',
+                                pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Gay"), 'Anti-Sexual Orientation',
+                                pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Gender"), 'Anti-Sexual Orientation',
+                                pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Heterosexual"), 'Anti-Sexual Orientation',
+                                pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Lesbian"), 'Anti-Sexual Orientation',
+                                pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Black"), 'Anti-Black',
+                                pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Islamic"), 'Anti-Islamic',
+                                pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Female"), 'Anti-sexism',
+                                pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Male"), 'Anti-sexism',
+                                pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Hispanic"), 'Anti-hispanic',
+                                pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Jewish"), 'Anti-Jewish' 
+                                , 'Multiple Groups'))))))))))))))
+heatmap1 = alt.Chart(df_HeatMap).mark_rect(
+    tooltip=True
+).encode(
+    alt.X("VictimHateCrime", scale=alt.Scale(zero=False), axis=alt.Axis(labelAngle=-0), title='Victim Hate Crime Type'),
+    alt.Y("OFFENDER_RACE", scale=alt.Scale(zero=False), title='Offender Race'),
+    alt.Color("count():Q", title = "No. of cases")
+).properties(
+    width=1480,
+    height=300,
+    title = "Frequency of attacks per Offender's race to Victim's Hate Crime Type"
+).configure_title(
+    fontSize=20
+).configure_axis(
+    titleFontSize=18    
+)
+st.write(heatmap1)
     
  #Clustering   
 st.header("Clustering on Hate Crimes")
