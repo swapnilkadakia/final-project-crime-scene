@@ -119,7 +119,7 @@ def plot_cluster(selection):
 
     return chart
     
-st.title("Application")
+st.title("Hate Crimes in the United States")
 
 with st.spinner(text="Loading data..."):
     df,df_city = load_data()
@@ -129,6 +129,14 @@ st.write(df.head())
 
 st.write("Cities Dataset")
 st.write(df_city.head())
+
+additional = st.checkbox('Would you like to view additional data?')
+
+if additional:
+    st.selectbox("Select your features",options=["Wellness Factor"])
+    
+
+
 
 selection = st.multiselect("Select your features",options = ['Bias','Crime','Location','Offender Race','Victim Type'])
 
