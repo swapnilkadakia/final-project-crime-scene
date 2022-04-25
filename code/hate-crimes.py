@@ -4,6 +4,7 @@ import altair as alt
 import streamlit as st
 import cleanup as cp
 import umap
+from vega_datasets import data
 from sklearn.cluster import DBSCAN
 
 
@@ -16,20 +17,20 @@ def load_data():
 @st.cache(allow_output_mutation=True)
 def plot_cluster(selection):
     #partition dataframe depending on selection
-    bias = df.iloc[:,75:110]
-    bias_labels = df.columns[75:110]
+    bias = df_hate.iloc[:,75:110]
+    bias_labels = df_hate.columns[75:110]
 
-    crime = df.iloc[:,18:66]
-    crime_labels = df.columns[18:66]
+    crime = df_hate.iloc[:,18:66]
+    crime_labels = df_hate.columns[18:66]
 
-    victim_type = df.iloc[:,66:75]
-    victim_type_labels = df.columns[66:75]
+    victim_type = df_hate.iloc[:,66:75]
+    victim_type_labels = df_hate.columns[66:75]
 
-    location = df.iloc[:,110:]
-    location_labels = df.columns[110:]
+    location = df_hate.iloc[:,110:]
+    location_labels = df_hate.columns[110:]
 
-    offender = df.iloc[:,10:18]
-    offender_labels = df.columns[10:18]
+    offender = df_hate.iloc[:,10:18]
+    offender_labels = df_hate.columns[10:18]
     offender_labels = np.array([i[14:] for i in offender_labels])
 
 
@@ -121,10 +122,10 @@ def plot_cluster(selection):
 st.title("Hate Crimes in the United States")
 
 with st.spinner(text="Loading data..."):
-    df,df_city = load_data()
+    df_hate,df_city = load_data()
 
 st.write("FBI Hate Crimes Dataset")    
-st.write(df.head())
+st.write(df_hate.head())
 
 st.write("Cities Dataset")
 st.write(df_city.head())
@@ -133,6 +134,60 @@ additional = st.checkbox('Would you like to view additional data?')
 
 if additional:
     st.selectbox("Select your features",options=["Wellness Factor"])
+
+#US MAP
+# Title 
+st.header("US MAP")
+# df = pd.read_csv('hate_crime.csv');
+alt.data_transformers.disable_max_rows()
+
+#Drawing up the UP MAP
+st.subheader("US MAP")
+
+#Adding a new column Frequency, that holds the number of cases in each state.
+df_hate['Frequency']=df_hate['STATE_NAME'].map(df_hate['STATE_NAME'].value_counts())
+df_hate = df_hate.drop_duplicates(subset=['STATE_NAME'], keep='first')
+df_hate = df_hate.rename({'STATE_NAME': 'state'}, axis = 1)
+
+#Alinging the state values
+ansi = pd.read_csv('https://www2.census.gov/geo/docs/reference/state.txt', sep='|')
+ansi.columns = ['id', 'abbr', 'state', 'statens']
+ansi = ansi[['id', 'abbr', 'state']]
+df_hate = pd.merge(df_hate, ansi, how='left', on='state')
+states = alt.topo_feature(data.us_10m.url, 'states')
+
+#Defining selection criteria 
+click = alt.selection_multi(fields=['state'])
+
+# Building and displaying the US MAP
+displayUSMap = alt.Chart(states).mark_geoshape().encode(
+    color=alt.Color('Frequency:Q', title = "No. of cases"),         
+    tooltip=['Frequency:Q', alt.Tooltip('Frequency:Q')], 
+    opacity = alt.condition(click, alt.value(1), alt.value(0.2)),
+).properties(
+    title = "Choropleth Map of the US on the number of recorded cases per State"  
+).transform_lookup(
+    lookup='id',
+    from_=alt.LookupData(df_hate, 'id', ['Frequency', 'state'])
+).properties(
+    width=500,
+    height=300
+).add_selection(click).project(
+    type='albersUsa'
+)
+
+
+bars = (
+    alt.Chart(
+        df_hate.nlargest(15, 'Frequency'),
+        title='Top 15 states by population').mark_bar().encode(
+    x='Frequency',
+    opacity=alt.condition(click, alt.value(1), alt.value(0.2)),
+    color='Frequency',
+    y=alt.Y('state', sort='x'))
+.add_selection(click))
+            
+st.write(displayUSMap & bars)    
     
  #Clustering   
 st.header("Clustering on Hate Crimes")
@@ -155,7 +210,6 @@ df_features_final = load_features_final("https://raw.githubusercontent.com/CMU-I
 state = st.text_input("Enter 2 letter state abbreviation")
 
 #City Visualization
-# st.write(features_final)
 #selecting only the cities in the selected state
 features_final = df_features_final
 features_final.drop(features_final[features_final['STATE_ABBR'] != state].index, inplace = True) 

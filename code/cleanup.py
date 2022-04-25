@@ -8,7 +8,7 @@ from sklearn.preprocessing import MultiLabelBinarizer
 def prep_fbi_dataset():
     df=pd.read_csv("https://raw.githubusercontent.com/CMU-IDS-2022/final-project-crime-scene/main/data/hate_crime.csv")
     #drop unused columns
-    unused = ['TOTAL_INDIVIDUAL_VICTIMS','ORI','PUB_AGENCY_UNIT','STATE_NAME', 'DIVISION_NAME','POPULATION_GROUP_CODE','ADULT_VICTIM_COUNT', 'JUVENILE_VICTIM_COUNT','ADULT_OFFENDER_COUNT','JUVENILE_OFFENDER_COUNT','OFFENDER_ETHNICITY','MULTIPLE_OFFENSE','MULTIPLE_BIAS']
+    unused = ['TOTAL_INDIVIDUAL_VICTIMS','ORI','PUB_AGENCY_UNIT', 'DIVISION_NAME','POPULATION_GROUP_CODE','ADULT_VICTIM_COUNT', 'JUVENILE_VICTIM_COUNT','ADULT_OFFENDER_COUNT','JUVENILE_OFFENDER_COUNT','OFFENDER_ETHNICITY','MULTIPLE_OFFENSE','MULTIPLE_BIAS']
     df.drop(columns=unused,inplace=True)
 
     #set numeric columns to proper data type
