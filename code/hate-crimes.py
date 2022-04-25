@@ -7,12 +7,11 @@ import umap
 from sklearn.cluster import DBSCAN
 
 
-@st.cache()
+@st.cache(allow_output_mutation=True)
 def load_data():
     df = cp.prep_fbi_dataset()
     df_city = cp.prep_city_dataset()
-    features_final=pd.read_csv("https://raw.githubusercontent.com/CMU-IDS-2022/final-project-crime-scene/main/data/features_final.csv")
-    return df,df_city,features_final
+    return df,df_city
 
 @st.cache(allow_output_mutation=True)
 def plot_cluster(selection):
@@ -122,7 +121,7 @@ def plot_cluster(selection):
 st.title("Hate Crimes in the United States")
 
 with st.spinner(text="Loading data..."):
-    df,df_city,features_final = load_data()
+    df,df_city = load_data()
 
 st.write("FBI Hate Crimes Dataset")    
 st.write(df.head())
@@ -136,6 +135,7 @@ if additional:
     st.selectbox("Select your features",options=["Wellness Factor"])
     
  #Clustering   
+st.header("Clustering on Hate Crimes")
 selection = st.multiselect("Select your features",options = ['Bias','Crime','Location','Offender Race','Victim Type'])
 
 #make selection for clustering
@@ -146,30 +146,30 @@ if selection:
 
 
 #Feature Importance
+st.header("Feature Importance")
+def load_features_final(name):
+    return pd.read_csv(name)
 
-# def load_data(name):
-#     return pd.read_csv(name)
-
-
-# data = load_data("features_final.csv")
+df_features_final = load_features_final("https://raw.githubusercontent.com/CMU-IDS-2022/final-project-crime-scene/main/data/features_final.csv")
 
 state = st.text_input("Enter 2 letter state abbreviation")
 
 #City Visualization
-df = features_final
+# st.write(features_final)
 #selecting only the cities in the selected state
-df.drop(df[df['STATE_ABBR'] != state].index, inplace = True) 
+features_final = df_features_final
+features_final.drop(features_final[features_final['STATE_ABBR'] != state].index, inplace = True) 
 st.write("Enter one of the following cities in " + state)
-st.write(df['City'])
+st.write(features_final['City'])
 
 #select the city for which you want to see the factors
 city = st.text_input("Enter city name")
-if( city in df.values  ):
-    df.drop(df[df['City'] != city].index, inplace = True)
-    print(df.head())
+if( city in features_final.values  ):
+    features_final.drop(features_final[features_final['City'] != city].index, inplace = True)
+    print(features_final.head())
     source = pd.DataFrame({
         'X' : ['High School Completion','Income Inequality','Life Expectancy','Racial Segregation','Racial Diversity','Unemployment','Uninsured'],
-        'Y': [df['High School Completion'].tolist()[0],df['Income Inequality'].tolist()[0], df['Life Expectancy'].tolist()[0], df['Neighborhood racial/ethnic segregation'].tolist()[0], df['Racial/ethnic diversity'].tolist()[0], df['Unemployment - annual, neighborhood-level'].tolist()[0], df['Uninsured'].tolist()[0] ],
+        'Y': [features_final['High School Completion'].tolist()[0],features_final['Income Inequality'].tolist()[0], features_final['Life Expectancy'].tolist()[0], features_final['Neighborhood racial/ethnic segregation'].tolist()[0], features_final['Racial/ethnic diversity'].tolist()[0], features_final['Unemployment - annual, neighborhood-level'].tolist()[0], features_final['Uninsured'].tolist()[0] ],
         })
     hist = alt.Chart(source).mark_bar().encode(
         x='X',
@@ -178,8 +178,8 @@ if( city in df.values  ):
         width=500,
         height=800)
         
-    st.header("Visualizing features in a city")
+    st.subheader("Visualizing features in a city")
     st.write(hist)
 else:
-    st.write("Please choose a city from th list provided")
+    st.write("Please choose a city from the list provided")
     
