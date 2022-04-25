@@ -32,7 +32,7 @@ def prep_fbi_dataset():
         transformed = cat_encoder.fit_transform(df[[f]])
         temp_df = pd.DataFrame(transformed.toarray(),columns = cat_encoder.get_feature_names_out())
         df = pd.concat([df.reset_index(drop=True), temp_df.reset_index(drop=True)], axis=1)
-        df.drop(columns=f,inplace=True)
+        # df.drop(columns=f,inplace=True)
 
     #define features for multilable binarizer
     mlb = MultiLabelBinarizer()
@@ -43,7 +43,7 @@ def prep_fbi_dataset():
         mlb.fit_transform(df[l].tolist())
         mb = pd.DataFrame(mlb.fit_transform(df[l].tolist()),columns=mlb.classes_)
         df = pd.concat([df, mb], axis=1)
-        df.drop(columns=l,inplace=True)
+        # df.drop(columns=l,inplace=True)
         
     #drop duplicate columns
     df = df.loc[:,~df.columns.duplicated()]

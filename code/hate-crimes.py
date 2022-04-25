@@ -17,20 +17,20 @@ def load_data():
 @st.cache(allow_output_mutation=True)
 def plot_cluster(selection):
     #partition dataframe depending on selection
-    bias = df_hate.iloc[:,75:110]
-    bias_labels = df_hate.columns[75:110]
+    bias = df_hate.iloc[:,80:115]
+    bias_labels = df_hate.columns[80:115]
 
-    crime = df_hate.iloc[:,18:66]
-    crime_labels = df_hate.columns[18:66]
+    crime = df_hate.iloc[:,23:71]
+    crime_labels = df_hate.columns[23:71]
 
-    victim_type = df_hate.iloc[:,66:75]
-    victim_type_labels = df_hate.columns[66:75]
+    victim_type = df_hate.iloc[:,71:80]
+    victim_type_labels = df_hate.columns[71:80]
 
     location = df_hate.iloc[:,110:]
     location_labels = df_hate.columns[110:]
 
-    offender = df_hate.iloc[:,10:18]
-    offender_labels = df_hate.columns[10:18]
+    offender = df_hate.iloc[:,15:23]
+    offender_labels = df_hate.columns[15:23]
     offender_labels = np.array([i[14:] for i in offender_labels])
 
 
