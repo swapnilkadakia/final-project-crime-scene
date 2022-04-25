@@ -7,12 +7,12 @@ import umap
 from sklearn.cluster import DBSCAN
 
 
-@st.cache
+@st.cache()
 def load_data():
-    # cp.prep_fbi_dataset()
     df = cp.prep_fbi_dataset()
     df_city = cp.prep_city_dataset()
-    return df,df_city
+    features_final=pd.read_csv("https://raw.githubusercontent.com/CMU-IDS-2022/final-project-crime-scene/main/data/features_final.csv")
+    return df,df_city,features_final
 
 @st.cache(allow_output_mutation=True)
 def plot_cluster(selection):
@@ -122,7 +122,7 @@ def plot_cluster(selection):
 st.title("Hate Crimes in the United States")
 
 with st.spinner(text="Loading data..."):
-    df,df_city = load_data()
+    df,df_city,features_final = load_data()
 
 st.write("FBI Hate Crimes Dataset")    
 st.write(df.head())
@@ -146,15 +146,21 @@ if selection:
 
 
 #Feature Importance
+
+# def load_data(name):
+#     return pd.read_csv(name)
+
+
+# data = load_data("features_final.csv")
+
 state = st.text_input("Enter 2 letter state abbreviation")
 
 #City Visualization
-df = df_city
-st.write()
+df = features_final
 #selecting only the cities in the selected state
-df.drop(df[df['state_abbr'] != state].index, inplace = True) 
+df.drop(df[df['STATE_ABBR'] != state].index, inplace = True) 
 st.write("Enter one of the following cities in " + state)
-st.write(df['city_name'])
+st.write(df['City'])
 
 #select the city for which you want to see the factors
 city = st.text_input("Enter city name")
@@ -176,4 +182,4 @@ if( city in df.values  ):
     st.write(hist)
 else:
     st.write("Please choose a city from th list provided")
-
+    
