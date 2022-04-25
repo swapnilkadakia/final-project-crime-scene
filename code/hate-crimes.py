@@ -135,26 +135,86 @@ additional = st.checkbox('Would you like to view additional data?')
 if additional:
     st.selectbox("Select your features",options=["Wellness Factor"])
 
+
+# # Title 
+# st.header("CRIME SCENE")
+# df_hate = pd.read_csv("https://raw.githubusercontent.com/CMU-IDS-2022/final-project-crime-scene/main/data/hate_crime.csv")
+# alt.data_transformers.disable_max_rows()
+
+# #Drawing up the UP MAP
+# st.subheader("US MAP")
+
+# #Adding a new column Frequency, that holds the number of cases in each state.
+# df_hate['Frequency']=df_hate['STATE_NAME'].map(df_hate['STATE_NAME'].value_counts())
+# df_hate = df_hate.drop_duplicates(subset=['STATE_NAME'], keep='first')
+# df_hate = df_hate.rename({'STATE_NAME': 'state'}, axis = 1)
+
+# #Alinging the state values
+# ansi = pd.read_csv('https://www2.census.gov/geo/docs/reference/state.txt', sep='|')
+# ansi.columns = ['id', 'abbr', 'state', 'statens']
+# ansi = ansi[['id', 'abbr', 'state']]
+# df = pd.merge(df_hate, ansi, how='left', on='state')
+# states = alt.topo_feature(data.us_10m.url, 'states')
+
+# #Defining selection criteria 
+# click = alt.selection_multi(fields=['state'])
+
+# # Building and displaying the US MAP
+# displayUSMap = alt.Chart(states).mark_geoshape().encode(
+#     color=alt.Color('Frequency:Q', title = "No. of cases"),         
+#     tooltip=['Frequency:Q', alt.Tooltip('Frequency:Q')], 
+#     opacity = alt.condition(click, alt.value(1), alt.value(0.2)),
+# ).properties(
+#     title = "Choropleth Map of the US on the number of recorded cases per State"  
+# ).transform_lookup(
+#     lookup='id'
+#     ,from_=alt.LookupData(df_hate, 'id', ['Frequency','state'])
+# ).properties(
+#     width=500,
+#     height=300
+# ).add_selection(click).project(
+#     type='albersUsa'
+# )
+
+
+# bars = (
+#     alt.Chart(
+#         df.nlargest(15, 'Frequency'),
+#         title='Top 15 states by population').mark_bar().encode(
+#     x='Frequency',
+#     opacity=alt.condition(click, alt.value(1), alt.value(0.2)),
+#     color='Frequency',
+#     y=alt.Y('state', sort='x'))
+# .add_selection(click))
+            
+# st.write(displayUSMap & bars)    
+
+#Reference for Interaction: https://stackoverflow.com/questions/63751130/altair-choropleth-map-color-highlight-based-on-line-chart-selection
+
 #US MAP
 # Title 
-st.header("US MAP")
-# df = pd.read_csv('hate_crime.csv');
-alt.data_transformers.disable_max_rows()
+st.header("CRIME SCENE")
 
-#Drawing up the UP MAP
+# Importing Data
+df =pd.read_csv("https://raw.githubusercontent.com/CMU-IDS-2022/final-project-crime-scene/main/data/hate_crime.csv")
+alt.data_transformers.disable_max_rows()
+df_HeatMap = df[['BIAS_DESC','OFFENDER_RACE']].copy()
+
+#Drawing up the US MAP
 st.subheader("US MAP")
 
 #Adding a new column Frequency, that holds the number of cases in each state.
-df_hate['Frequency']=df_hate['STATE_NAME'].map(df_hate['STATE_NAME'].value_counts())
-df_hate = df_hate.drop_duplicates(subset=['STATE_NAME'], keep='first')
-df_hate = df_hate.rename({'STATE_NAME': 'state'}, axis = 1)
+df['Frequency']=df['STATE_NAME'].map(df['STATE_NAME'].value_counts())
+df = df.drop_duplicates(subset=['STATE_NAME'], keep='first')
+df = df.rename({'STATE_NAME': 'state'}, axis = 1)
 
 #Alinging the state values
 ansi = pd.read_csv('https://www2.census.gov/geo/docs/reference/state.txt', sep='|')
 ansi.columns = ['id', 'abbr', 'state', 'statens']
 ansi = ansi[['id', 'abbr', 'state']]
-df_hate = pd.merge(df_hate, ansi, how='left', on='state')
+df = pd.merge(df, ansi, how='left', on='state')
 states = alt.topo_feature(data.us_10m.url, 'states')
+
 
 #Defining selection criteria 
 click = alt.selection_multi(fields=['state'])
@@ -162,68 +222,55 @@ click = alt.selection_multi(fields=['state'])
 # Building and displaying the US MAP
 displayUSMap = alt.Chart(states).mark_geoshape().encode(
     color=alt.Color('Frequency:Q', title = "No. of cases"),         
-    tooltip=['Frequency:Q', alt.Tooltip('Frequency:Q')], 
-    opacity = alt.condition(click, alt.value(1), alt.value(0.2)),
+    tooltip=['Frequency:Q', alt.Tooltip('Frequency:Q')],    
 ).properties(
     title = "Choropleth Map of the US on the number of recorded cases per State"  
 ).transform_lookup(
     lookup='id',
-    from_=alt.LookupData(df_hate, 'id', ['Frequency', 'state'])
+    from_=alt.LookupData(df, 'id', ['Frequency'])
 ).properties(
     width=500,
     height=300
 ).add_selection(click).project(
     type='albersUsa'
 )
+st.write(displayUSMap)
 
-
-bars = (
-    alt.Chart(
-        df_hate.nlargest(15, 'Frequency'),
-        title='Top 15 states by population').mark_bar().encode(
-    x='Frequency',
-    opacity=alt.condition(click, alt.value(1), alt.value(0.2)),
-    color='Frequency',
-    y=alt.Y('state', sort='x'))
-.add_selection(click))
-            
-st.write(displayUSMap & bars)    
 #Reference for Interaction: https://stackoverflow.com/questions/63751130/altair-choropleth-map-color-highlight-based-on-line-chart-selection
 
 # Plotting the Offender Race vs Victim's Hate Crime 
-df_HeatMap = df_hate[['BIAS_DESC','OFFENDER_RACE']].copy()
-df_HeatMap = df_HeatMap.dropna()
-df_HeatMap['VictimHateCrime'] = pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Indian"), 'Anti-Indian',
-                                pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Arab"), 'Anti-Arab',
-                                pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Asian"), 'Anti-Asian',
-                                pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Bisexual"), 'Anti-Sexual Orientation',
-                                pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Gay"), 'Anti-Sexual Orientation',
-                                pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Gender"), 'Anti-Sexual Orientation',
-                                pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Heterosexual"), 'Anti-Sexual Orientation',
-                                pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Lesbian"), 'Anti-Sexual Orientation',
-                                pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Black"), 'Anti-Black',
-                                pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Islamic"), 'Anti-Islamic',
-                                pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Female"), 'Anti-sexism',
-                                pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Male"), 'Anti-sexism',
-                                pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Hispanic"), 'Anti-hispanic',
-                                pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Jewish"), 'Anti-Jewish' 
-                                , 'Multiple Groups'))))))))))))))
-heatmap1 = alt.Chart(df_HeatMap).mark_rect(
-    tooltip=True
-).encode(
-    alt.X("VictimHateCrime", scale=alt.Scale(zero=False), axis=alt.Axis(labelAngle=-0), title='Victim Hate Crime Type'),
-    alt.Y("OFFENDER_RACE", scale=alt.Scale(zero=False), title='Offender Race'),
-    alt.Color("count():Q", title = "No. of cases")
-).properties(
-    width=1480,
-    height=300,
-    title = "Frequency of attacks per Offender's race to Victim's Hate Crime Type"
-).configure_title(
-    fontSize=20
-).configure_axis(
-    titleFontSize=18    
-)
-st.write(heatmap1)
+# df_HeatMap = df_HeatMap.dropna()
+# df_HeatMap['VictimHateCrime'] = pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Indian"), 'Anti-Indian',
+#                                 pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Arab"), 'Anti-Arab',
+#                                 pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Asian"), 'Anti-Asian',
+#                                 pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Bisexual"), 'Anti-Sexual Orientation',
+#                                 pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Gay"), 'Anti-Sexual Orientation',
+#                                 pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Gender"), 'Anti-Sexual Orientation',
+#                                 pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Heterosexual"), 'Anti-Sexual Orientation',
+#                                 pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Lesbian"), 'Anti-Sexual Orientation',
+#                                 pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Black"), 'Anti-Black',
+#                                 pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Islamic"), 'Anti-Islamic',
+#                                 pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Female"), 'Anti-sexism',
+#                                 pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Male"), 'Anti-sexism',
+#                                 pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Hispanic"), 'Anti-hispanic',
+#                                 pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Jewish"), 'Anti-Jewish' 
+#                                 , 'Multiple Groups'))))))))))))))
+# heatmap1 = alt.Chart(df_HeatMap).mark_rect(
+#     tooltip=True
+# ).encode(
+#     alt.X("VictimHateCrime", scale=alt.Scale(zero=False), axis=alt.Axis(labelAngle=-0), title='Victim Hate Crime Type'),
+#     alt.Y("OFFENDER_RACE", scale=alt.Scale(zero=False), title='Offender Race'),
+#     alt.Color("count():Q", title = "No. of cases")
+# ).properties(
+#     width=1480,
+#     height=300,
+#     title = "Frequency of attacks per Offender's race to Victim's Hate Crime Type"
+# ).configure_title(
+#     fontSize=20
+# ).configure_axis(
+#     titleFontSize=18    
+# )
+# st.write(heatmap1)
     
  #Clustering   
 st.header("Clustering on Hate Crimes")
