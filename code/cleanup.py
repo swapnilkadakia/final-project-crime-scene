@@ -49,4 +49,15 @@ def prep_fbi_dataset():
     df = df.loc[:,~df.columns.duplicated()]
 
     return df
+
+def prep_city_dataset():
+    data=pd.read_csv("https://raw.githubusercontent.com/CMU-IDS-2022/final-project-crime-scene/main/data/CHDB_data_city_all_v14.csv")
+    data_columns  = data[data["metric_name"].isin(["Life expectancy", "High school completion", "Housing cost,excessive","Income Inequality","Neighborhood racial/ethnic segregation","Racial/ethnic diversity","Unemployment - annual, neighborhood-level","Violent crime","Uninsured"])]
+    df  = data_columns[data_columns["group_name"].isin(["total population"])]
+    df.isnull().sum(axis = 0)
+    df = df[['state_abbr','city_name' ,'metric_name', 'est', 'data_yr_type']]
+    df= df.reset_index()
+    df = df.drop('index', 1)
+    df = df[df['est'].notna()]
+    return data
     

@@ -1,23 +1,18 @@
 import pandas as pd
 import numpy as np
-from matplotlib import pyplot as plt
-import seaborn as sns
-from sklearn.preprocessing import OneHotEncoder
-from sklearn.preprocessing import MultiLabelBinarizer
 import altair as alt
 import streamlit as st
-from sklearn import preprocessing
 import cleanup as cp
 import umap
 from sklearn.cluster import DBSCAN
-from sklearn.manifold import TSNE
 
 
 @st.cache
 def load_data():
     # cp.prep_fbi_dataset()
     df = cp.prep_fbi_dataset()
-    return df
+    df_city = cp.prep_city_dataset()
+    return df,df_city
 
 @st.cache(allow_output_mutation=True)
 def plot_cluster(selection):
@@ -127,8 +122,13 @@ def plot_cluster(selection):
 st.title("Application")
 
 with st.spinner(text="Loading data..."):
-    df = load_data()
+    df,df_city = load_data()
+
+st.write("FBI Hate Crimes Dataset")    
 st.write(df.head())
+
+st.write("Cities Dataset")
+st.write(df_city.head())
 
 selection = st.multiselect("Select your features",options = ['Bias','Crime','Location','Offender Race','Victim Type'])
 
