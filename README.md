@@ -33,4 +33,5 @@ Update towards the end of the project.
 1. Prior to running application, ensure that necessary packages are installed.
 
 Install scikit-learn:
+
 pip install -U scikit-learn
