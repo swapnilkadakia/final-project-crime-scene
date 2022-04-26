@@ -355,8 +355,8 @@ def load_features_final(name):
     return pd.read_csv(name)
 
 df_features_final = load_features_final("https://raw.githubusercontent.com/CMU-IDS-2022/final-project-crime-scene/main/data/features_final.csv")
-df_hate_crime_data = load_features_final("https://raw.githubusercontent.com/CMU-IDS-2022/final-project-crime-scene/main/data/hate_crime.csv")
-# df_hate_crime_data = df_hate
+# df_hate_crime_data = load_features_final("https://raw.githubusercontent.com/CMU-IDS-2022/final-project-crime-scene/main/data/hate_crime.csv")
+df_hate_crime_data = df_hate
 df_hate_crime_data = df_hate_crime_data.rename(columns={'state_abbr': 'STATE_ABBR'})
 
 state = st.text_input("Enter 2 letter state abbreviation")
@@ -408,8 +408,6 @@ if state:
     )
     st.write(pie)
 
-
-    st.write(df1['STATE_ABBR'])
 
     #selecting only the cities in the selected state
     df.drop(df[df['STATE_ABBR'] != state].index, inplace = True)
