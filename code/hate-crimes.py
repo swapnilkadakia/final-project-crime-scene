@@ -317,6 +317,7 @@ st.write(displayUSMap & bars)
 #Reference for Interaction: https://stackoverflow.com/questions/63751130/altair-choropleth-map-color-highlight-based-on-line-chart-selection
 
 # Plotting the Offender Race vs Victim's Hate Crime 
+st.subheader("Correlation of Offender's Race to Victim's Hate Crime Type")
 df_HeatMap = df_HeatMap.dropna()
 df_HeatMap['VictimHateCrime'] = pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Indian"), 'Anti-Indian',
                                 pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Arab"), 'Anti-Arab',
