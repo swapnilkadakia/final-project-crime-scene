@@ -10,7 +10,7 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 import numpy as np
 import pandas as pd
-
+from PIL import Image
 
 def load_features_final(name):
     return pd.read_csv(name)
@@ -129,7 +129,7 @@ def plot_cluster(selection):
 
 #Formatting
 with st.sidebar:
-    choose = option_menu("Hate Crimes in the US", ["Home","Overview","Exploratory Data Analysis", "Clustering","Feature Importance" ,"Exploring States & Cities"],
+    choose = option_menu("Hate Crimes in the US", ["Home","Exploratory Data Analysis","Hate Crime Distribution", "Clustering","Feature Importance" ,"Exploring States & Cities"],
                          icons=['house','table', 'map', 'circle','bar-chart-line' ,'building'],
                          menu_icon="app", default_index=0,
                          styles={
@@ -152,11 +152,12 @@ with st.spinner(text="Loading data..."):
 # additional = st.checkbox('Would you like to view additional data?')
 
 if choose == 'Home':
-    st.header("Home")
+    st.title("Home")
     st.write("In 2018, on the morning of October 27, Robert Bowers entered the Tree of Life Synagogue in Pittsburgh, PA, yelled “All Jews must die,” and opened fire on the congregants. He was armed with an assault rifle and several handguns, and killed eleven congregants and wounded six others, four of whom are police officers. This was one of the deadliest attacks on the Jewish Community in the United States.")
-    
-elif choose == 'Overview':
-    st.header("Overview")
+    # image = Image.open('https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/main/images/hate_crime_shooting.png')
+    st.image('https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/main/images/hate_crime_shooting.png')
+elif choose == 'Exploratory Data Analysis':
+    st.title("Exploratory Data Analysis")
     col1, col2 = st.columns(2)
     # st.write("FBI Hate Crimes Dataset" | "FBI Hate Crimes Dataset")
     col1.subheader("FBI Hate Crimes Dataset")
@@ -293,10 +294,10 @@ elif choose == 'Overview':
 
         st.write(Unemployment_Factor_bar)
 
-elif choose == "Exploratory Data Analysis":
+elif choose == "Hate Crime Distribution":
     #US MAP
     # Title 
-    st.header("Exploratory Data Analysis")
+    st.title("Hate Crime Distribution")
 
     df1 = df_hate
 
