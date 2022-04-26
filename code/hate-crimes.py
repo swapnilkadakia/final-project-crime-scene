@@ -183,6 +183,8 @@ if additional:
         ).properties(
         title = "High School Completion Well-Being Factor across States")
 
+        st.write(High_School_Completion_bar)
+
         #Plotting Life expectancy 
         data_final1  = df_city[df_city["metric_name"].isin(["Life expectancy"])]
         data_final2  = data_final1[data_final1["group_name"].isin(["total population"])]
@@ -194,6 +196,8 @@ if additional:
             y=alt.Y('est', scale=alt.Scale(domain=[74,86]))
         ).properties(
         title = "Life expectancy Well-Being Factor across States")
+        
+        st.write(Life_expectancy_bar)
 
 
         #Plotting Income Inequality 
@@ -208,6 +212,8 @@ if additional:
         ).properties(
         title = "Income Inequality Well-Being Factor across States")
 
+        st.write(Income_Inequality_bar)
+
 
         #Plotting Neighborhood racial/ethnic segregation
         data_final1  = df_city[df_city["metric_name"].isin(["Neighborhood racial/ethnic segregation"])]
@@ -221,6 +227,8 @@ if additional:
         ).properties(
         title = "Neighborhood racial/ethnic segregation Well-Being Factor across States")
 
+        st.write(Neighborhood_racial_ethnic_segregation_bar)
+
         #Plotting Racial/ethnic diversity
         data_final1  = df_city[df_city["metric_name"].isin(["Racial/ethnic diversity"])]
         data_final2  = data_final1[data_final1["group_name"].isin(["total population"])]
@@ -233,7 +241,9 @@ if additional:
         ).properties(
         title = "Racial/ethnic diversity Well-Being Factor across States")
 
+        st.write(Racial_ethnic_diversity_bar)
 
+    
         #Plotting Unemployment Factor
         data_final1  = df_city[df_city["metric_name"].isin(["Unemployment - annual, neighborhood-level"])]
         data_final2  = data_final1[data_final1["group_name"].isin(["total population"])]
@@ -245,6 +255,9 @@ if additional:
             y=alt.Y('est', scale=alt.Scale(domain=[0,20]))
         ).properties(
         title = "Unemployment Factor Well-Being Factor across States")
+
+        st.write(Unemployment_Factor_bar)
+
 
 #US MAP
 # Title 
