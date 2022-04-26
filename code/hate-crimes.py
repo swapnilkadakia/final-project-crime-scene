@@ -171,7 +171,7 @@ if additional:
     else:
         #Plotting High School Completion 
         # df_city_expl = pd.read_csv("https://raw.githubusercontent.com/CMU-IDS-2022/final-project-crime-scene/main/data/city_data.csv")
-        st.write(df_city)
+        # st.write(df_city)
         data_final1  = df_city[df_city["metric_name"].isin(["High school completion"])]
         data_final2  = data_final1[data_final1["group_name"].isin(["total population"])]
         data_final3 = data_final2.sort_values(by='est', ascending=False)
