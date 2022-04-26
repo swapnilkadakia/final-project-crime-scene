@@ -9,10 +9,8 @@ from sklearn.cluster import DBSCAN
 import streamlit as st
 from streamlit_option_menu import option_menu
 import numpy as np
-# import cv2
 import pandas as pd
 
-import io 
 
 def load_features_final(name):
     return pd.read_csv(name)
@@ -153,7 +151,12 @@ with st.spinner(text="Loading data..."):
 
 # additional = st.checkbox('Would you like to view additional data?')
 
-if choose == 'Overview':
+if choose == 'Home':
+    st.header("Home")
+    st.write("In 2018, on the morning of October 27, Robert Bowers entered the Tree of Life Synagogue in Pittsburgh, PA, yelled “All Jews must die,” and opened fire on the congregants. He was armed with an assault rifle and several handguns, and killed eleven congregants and wounded six others, four of whom are police officers. This was one of the deadliest attacks on the Jewish Community in the United States.")
+    
+elif choose == 'Overview':
+    st.header("Overview")
     col1, col2 = st.columns(2)
     # st.write("FBI Hate Crimes Dataset" | "FBI Hate Crimes Dataset")
     col1.subheader("FBI Hate Crimes Dataset")
@@ -199,11 +202,8 @@ if choose == 'Overview':
         title = "Victim Race").configure_mark(color='#31AE9D')
 
         offend, vict = st.columns(2)
-        # offend.write("Offender Race")
         offend.write(offenderRace)
-        # vict.write("Victim Race")
         vict.write(victimRace)
-        # st.write(offenderRace|victimRace) #| st.write(victimRace)
 
     else:
         #Plotting High School Completion 
@@ -455,37 +455,38 @@ elif choose =='Feature Importance':
             # chartList.append(exploration_chart)
             st.write(exploration_chart)
         
-        #running ML for feature importance
-        from sklearn.ensemble import RandomForestRegressor
-        from sklearn.preprocessing import scale
-        import matplotlib.pyplot as plt
-        from sklearn import set_config 
+        if feat_selection:
+            #running ML for feature importance
+            from sklearn.ensemble import RandomForestRegressor
+            from sklearn.preprocessing import scale
+            import matplotlib.pyplot as plt
+            from sklearn import set_config 
 
-        df = df_features_final
+            df = df_features_final
 
-        st.write(df)
-        Y = df["no_of_crimes"]  
-        X = df[feat_selection]
-        # define the model
-        model = RandomForestRegressor()
-        # fit the model
-        model.fit(X, Y)
-        # get importance
-        importance = model.feature_importances_
+            st.write(df)
+            Y = df["no_of_crimes"]  
+            X = df[feat_selection]
+            # define the model
+            model = RandomForestRegressor()
+            # fit the model
+            model.fit(X, Y)
+            # get importance
+            importance = model.feature_importances_
 
-        # summarize feature importance
-        for i in range(len(importance)):
-            print(X.columns[i] + " : "+ str(importance[i].round(6)))
-            
-        from matplotlib.pyplot import figure
+            # summarize feature importance
+            for i in range(len(importance)):
+                print(X.columns[i] + " : "+ str(importance[i].round(6)))
+                
+            from matplotlib.pyplot import figure
 
-        figure(figsize=(16, 10), dpi=80)
-            
-        # plot feature importance
-        plt.xticks(rotation=0)
-        plt.bar([x for x in X.columns], importance, color = 'orange')
+            figure(figsize=(16, 10), dpi=80)
+                
+            # plot feature importance
+            plt.xticks(rotation=0)
+            plt.bar([x for x in X.columns], importance, color = 'orange')
 
-        st.pyplot(plt)
+            st.pyplot(plt)
 
 
 elif choose == "Exploring States & Cities":
