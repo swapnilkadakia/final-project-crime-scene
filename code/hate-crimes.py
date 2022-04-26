@@ -17,23 +17,22 @@ def load_data():
 @st.cache(allow_output_mutation=True)
 def plot_cluster(selection):
     #partition dataframe depending on selection
-    bias = df_hate.iloc[:,80:115]
-    bias_labels = df_hate.columns[80:115]
+    bias = df_hate.iloc[:,81:116]
+    bias_labels = df_hate.columns[81:116]
 
-    crime = df_hate.iloc[:,23:71]
-    crime_labels = df_hate.columns[23:71]
+    crime = df_hate.iloc[:,24:72]
+    crime_labels = df_hate.columns[24:72]
 
-    victim_type = df_hate.iloc[:,71:80]
-    victim_type_labels = df_hate.columns[71:80]
+    victim_type = df_hate.iloc[:,72:81]
+    victim_type_labels = df_hate.columns[72:81]
 
-    location = df_hate.iloc[:,110:]
-    location_labels = df_hate.columns[110:]
+    location = df_hate.iloc[:,116:]
+    location_labels = df_hate.columns[116:]
 
-    offender = df_hate.iloc[:,15:23]
-    offender_labels = df_hate.columns[15:23]
+    offender = df_hate.iloc[:,16:24]
+    offender_labels = df_hate.columns[16:24]
     offender_labels = np.array([i[14:] for i in offender_labels])
-
-
+    
     num_indicators = len(selection)
     if num_indicators == 1:
         if selection[0] == 'Bias':
@@ -133,63 +132,117 @@ st.write(df_city.head())
 additional = st.checkbox('Would you like to view additional data?')
 
 if additional:
-    st.selectbox("Select your features",options=["Wellness Factor"])
+    option = st.selectbox("Select your features",options=['Hate Crimes',"Wellbeing of Cities"])
+
+    if option == 'Hate Crimes':
+        cities = alt.Chart(df_hate.head(1000)).mark_bar().encode(
+        x=alt.X("STATE_NAME",  sort="-y"),
+        y=alt.Y("count()")
+        )
+
+        st.write(cities)
+
+        # Offender Race 
+        offenderRace = alt.Chart(df_hate.head(1000)).mark_bar().encode(
+            x=alt.X("OFFENDER_RACE",  sort="-y"),
+            y=alt.Y("count()")
+        )
+
+        # Victim Race 
+        victimRace = alt.Chart(df_hate.head(1000)).mark_bar().encode(
+            x=alt.X("BIAS_DESC",  sort="-y"),
+            y=alt.Y("count()")
+        ).transform_window(
+            rank='rank(BIAS_DESC)'
+        ).transform_filter(
+            (alt.datum.rank < 1000)
+        )
+
+        st.write(offenderRace) | st.write(victimRace)
+
+        #Line graph of total recorded crimes per year
+        chart = alt.Chart(df_hate.head(1000)).mark_line().encode(
+            alt.X('DATA_YEAR'),
+            alt.Y('VICTIM_COUNT', aggregate='sum')
+        )
+        chart.encoding.x.title='Crime Year'
+        chart.encoding.y.title='Total Recorded Crime Count'
+        st.write(chart)
+    else:
+        #Plotting High School Completion 
+        data_final1  = df_city[df_city["metric_name"].isin(["High school completion"])]
+        data_final2  = data_final1[data_final1["group_name"].isin(["total population"])]
+        data_final3 = data_final2.sort_values(by='est', ascending=False)
+        data_final3.head(1000)
+
+        High_School_Completion_bar = alt.Chart(data_final3).mark_bar(clip=True).encode(
+            x=alt.X('state_abbr', sort = None),
+            y=alt.Y('est', scale=alt.Scale(domain=[85,100]))
+        ).properties(
+        title = "High School Completion Well-Being Factor across States")
+
+        #Plotting Life expectancy 
+        data_final1  = df_city[df_city["metric_name"].isin(["Life expectancy"])]
+        data_final2  = data_final1[data_final1["group_name"].isin(["total population"])]
+        data_final3 = data_final2.sort_values(by='est', ascending=False)
+        data_final3.head(1000)
+
+        Life_expectancy_bar = alt.Chart(data_final3).mark_bar(clip=True).encode(
+            x=alt.X('state_abbr', sort = None),
+            y=alt.Y('est', scale=alt.Scale(domain=[74,86]))
+        ).properties(
+        title = "Life expectancy Well-Being Factor across States")
 
 
-# # Title 
-# st.header("CRIME SCENE")
-# df_hate = pd.read_csv("https://raw.githubusercontent.com/CMU-IDS-2022/final-project-crime-scene/main/data/hate_crime.csv")
-# alt.data_transformers.disable_max_rows()
+        #Plotting Income Inequality 
+        data_final1  = df_city[df_city["metric_name"].isin(["Income Inequality"])]
+        data_final2  = data_final1[data_final1["group_name"].isin(["total population"])]
+        data_final3 = data_final2.sort_values(by='est', ascending=False)
+        data_final3.head(1000)
 
-# #Drawing up the UP MAP
-# st.subheader("US MAP")
-
-# #Adding a new column Frequency, that holds the number of cases in each state.
-# df_hate['Frequency']=df_hate['STATE_NAME'].map(df_hate['STATE_NAME'].value_counts())
-# df_hate = df_hate.drop_duplicates(subset=['STATE_NAME'], keep='first')
-# df_hate = df_hate.rename({'STATE_NAME': 'state'}, axis = 1)
-
-# #Alinging the state values
-# ansi = pd.read_csv('https://www2.census.gov/geo/docs/reference/state.txt', sep='|')
-# ansi.columns = ['id', 'abbr', 'state', 'statens']
-# ansi = ansi[['id', 'abbr', 'state']]
-# df = pd.merge(df_hate, ansi, how='left', on='state')
-# states = alt.topo_feature(data.us_10m.url, 'states')
-
-# #Defining selection criteria 
-# click = alt.selection_multi(fields=['state'])
-
-# # Building and displaying the US MAP
-# displayUSMap = alt.Chart(states).mark_geoshape().encode(
-#     color=alt.Color('Frequency:Q', title = "No. of cases"),         
-#     tooltip=['Frequency:Q', alt.Tooltip('Frequency:Q')], 
-#     opacity = alt.condition(click, alt.value(1), alt.value(0.2)),
-# ).properties(
-#     title = "Choropleth Map of the US on the number of recorded cases per State"  
-# ).transform_lookup(
-#     lookup='id'
-#     ,from_=alt.LookupData(df_hate, 'id', ['Frequency','state'])
-# ).properties(
-#     width=500,
-#     height=300
-# ).add_selection(click).project(
-#     type='albersUsa'
-# )
+        Income_Inequality_bar = alt.Chart(data_final3).mark_bar(clip=True).encode(
+            x=alt.X('state_abbr', sort = None),
+            y=alt.Y('est', scale=alt.Scale(domain=[0,60]))
+        ).properties(
+        title = "Income Inequality Well-Being Factor across States")
 
 
-# bars = (
-#     alt.Chart(
-#         df.nlargest(15, 'Frequency'),
-#         title='Top 15 states by population').mark_bar().encode(
-#     x='Frequency',
-#     opacity=alt.condition(click, alt.value(1), alt.value(0.2)),
-#     color='Frequency',
-#     y=alt.Y('state', sort='x'))
-# .add_selection(click))
-            
-# st.write(displayUSMap & bars)    
+        #Plotting Neighborhood racial/ethnic segregation
+        data_final1  = df_city[df_city["metric_name"].isin(["Neighborhood racial/ethnic segregation"])]
+        data_final2  = data_final1[data_final1["group_name"].isin(["total population"])]
+        data_final3 = data_final2.sort_values(by='est', ascending=False)
+        data_final3.head(1000)
 
-#Reference for Interaction: https://stackoverflow.com/questions/63751130/altair-choropleth-map-color-highlight-based-on-line-chart-selection
+        Neighborhood_racial_ethnic_segregation_bar = alt.Chart(data_final3).mark_bar(clip=True).encode(
+            x=alt.X('state_abbr', sort = None),
+            y=alt.Y('est', scale=alt.Scale(domain=[0,45]))
+        ).properties(
+        title = "Neighborhood racial/ethnic segregation Well-Being Factor across States")
+
+        #Plotting Racial/ethnic diversity
+        data_final1  = df_city[df_city["metric_name"].isin(["Racial/ethnic diversity"])]
+        data_final2  = data_final1[data_final1["group_name"].isin(["total population"])]
+        data_final3 = data_final2.sort_values(by='est', ascending=False)
+        data_final3.head(1000)
+
+        Racial_ethnic_diversity_bar = alt.Chart(data_final3).mark_bar(clip=True).encode(
+            x=alt.X('state_abbr', sort = None),
+            y=alt.Y('est', scale=alt.Scale(domain=[35,100]))
+        ).properties(
+        title = "Racial/ethnic diversity Well-Being Factor across States")
+
+
+        #Plotting Unemployment Factor
+        data_final1  = df_city[df_city["metric_name"].isin(["Unemployment - annual, neighborhood-level"])]
+        data_final2  = data_final1[data_final1["group_name"].isin(["total population"])]
+        data_final3 = data_final2.sort_values(by='est', ascending=False)
+        data_final3.head(1000)
+
+        Unemployment_Factor_bar = alt.Chart(data_final3).mark_bar(clip=True).encode(
+            x=alt.X('state_abbr', sort = None),
+            y=alt.Y('est', scale=alt.Scale(domain=[0,20]))
+        ).properties(
+        title = "Unemployment Factor Well-Being Factor across States")
 
 #US MAP
 # Title 
@@ -284,29 +337,6 @@ heatmap1 = alt.Chart(df_HeatMap).mark_rect(
 )
 st.write(heatmap1)
 
-
-#Pie Chart 
-alt.data_transformers.disable_max_rows()
-df1 = pd.read_csv("https://raw.githubusercontent.com/CMU-IDS-2022/final-project-crime-scene/main/data/city_data.csv")
-df2 = df1.pivot_table(index=['state_abbr','metric_name'],values = 'est',aggfunc=np.mean).reset_index()
-
-
-i = 0
-value = []
-while i<df2.shape[0]:
-    #State name on click
-    if df2.iloc[i]['state_abbr']=='WY':
-        if df2.iloc[i]['metric_name']!='Violent crime':
-            value.append(df2.iloc[i]['est'])
-    i+=1    
-source = pd.DataFrame({"Factors": ['High school completion', 'Income Inequality', 'Life expectancy', 'Neighborhood racial/ethnic segregation', 'Racial/ethnic diversity', 'Unemployment - annual, neighborhood-level', 'Uninsured'], "value": value})
-pie = (alt.Chart(source).mark_arc().encode(
-    theta=alt.Theta(field="value", type="quantitative"),
-    color=alt.Color(field="Factors", type="nominal"),
-    tooltip = [alt.Tooltip('value')]
-).properties(
-    title = "Well-Being Factors Distribution for the State"
-))
     
  #Clustering   
 st.header("Clustering on Hate Crimes")
@@ -327,6 +357,7 @@ def load_features_final(name):
 df_features_final = load_features_final("https://raw.githubusercontent.com/CMU-IDS-2022/final-project-crime-scene/main/data/features_final.csv")
 
 state = st.text_input("Enter 2 letter state abbreviation")
+st.write(state)
 
 #City Visualization
 #selecting only the cities in the selected state
@@ -355,4 +386,31 @@ if( city in features_final.values  ):
     st.write(hist)
 else:
     st.write("Please choose a city from the list provided")
+
     
+#Pie Chart 
+alt.data_transformers.disable_max_rows()
+df1 = df_city
+# df1 = pd.read_csv("https://raw.githubusercontent.com/CMU-IDS-2022/final-project-crime-scene/main/data/city_data.csv")
+df2 = df1.pivot_table(index=['state_abbr','metric_name'],values = 'est',aggfunc=np.mean).reset_index()
+# st.write(df2)
+
+i = 0
+value = []
+while i<df2.shape[0]:
+    #State name on click
+    if df2.iloc[i]['state_abbr']==state:
+        if df2.iloc[i]['metric_name']!='Violent crime':
+            value.append(df2.iloc[i]['est'])
+    i+=1    
+# st.write(value)
+source = pd.DataFrame({"Factors": ['High school completion', 'Income Inequality', 'Life expectancy', 'Neighborhood racial/ethnic segregation', 'Racial/ethnic diversity', 'Unemployment - annual, neighborhood-level', 'Uninsured'], "value": value})
+pie = alt.Chart(source).mark_arc().encode(
+    theta=alt.Theta(field="value", type="quantitative"),
+    color=alt.Color(field="Factors", type="nominal"),
+    tooltip = [alt.Tooltip('value')]
+).properties(
+    title = "Well-Being Factors Distribution for the State"
+)
+
+st.write(pie)
