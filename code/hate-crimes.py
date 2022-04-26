@@ -355,11 +355,11 @@ def load_features_final(name):
     return pd.read_csv(name)
 
 df_features_final = load_features_final("https://raw.githubusercontent.com/CMU-IDS-2022/final-project-crime-scene/main/data/features_final.csv")
-df_hate_crime_data = df_hate
-
+df_hate_crime_data = load_features_final("https://raw.githubusercontent.com/CMU-IDS-2022/final-project-crime-scene/main/data/hate_crime.csv")
+# df_hate_crime_data = df_hate
+df_hate_crime_data = df_hate_crime_data.rename(columns={'state_abbr': 'STATE_ABBR'})
 
 state = st.text_input("Enter 2 letter state abbreviation")
-
 #City Visualization
 df = df_features_final
 df1 = df_hate_crime_data
@@ -370,8 +370,6 @@ US_year = US_year.to_frame()
 US_year= US_year.reset_index()
 US_year.columns = US_year.columns.astype(str)
 US_year['DATA_YEAR'] = US_year.DATA_YEAR.astype(str)
-
-#st.write(state_year)
 lines_state = alt.Chart(US_year).mark_line().encode(
 x=alt.X('DATA_YEAR' , scale = alt.Scale(zero=False), title = 'Year', axis=alt.Axis(labelAngle=-0)),
 y=alt.Y('0', scale = alt.Scale(zero=False) ,  title =' Number of Crimes')
@@ -383,129 +381,132 @@ title = "Timeline showing the number of  hate crimes in the United States " )
 st.header("Visualization showing number of hate crimes over past 28 years in the United States of America")
 st.write(lines_state)
 
-#selecting only the cities in the selected state
-df.drop(df[df['STATE_ABBR'] != state].index, inplace = True)
-df1.drop(df1[df1['STATE_ABBR'] != state].index, inplace = True)
- 
-#select the state for which you want to see the timeline
-state_year = df1.groupby("DATA_YEAR").size()
-state_year = state_year.to_frame()
-state_year = state_year.reset_index()
-state_year.columns = state_year.columns.astype(str)
-state_year['DATA_YEAR'] = state_year.DATA_YEAR.astype(str)
 
-#st.write(state_year)
-lines_state = alt.Chart(state_year).mark_line().encode(
-x=alt.X('DATA_YEAR' , scale = alt.Scale(zero=False), title = 'Year', axis=alt.Axis(labelAngle=-0)),
-y=alt.Y('0', scale = alt.Scale(zero=False) ,  title =' Number of Crimes')
-).properties(
-width=1000,
-height=300,
-title = "Timeline showing the number of  hate crimes in  " + state)
+#Pie Chart 
+if state:
+    alt.data_transformers.disable_max_rows()
+    # df1 = df_city
+    # df1 = pd.read_csv("https://raw.githubusercontent.com/CMU-IDS-2022/final-project-crime-scene/main/data/city_data.csv")
+    df2 = df_city.pivot_table(index=['state_abbr','metric_name'],values = 'est',aggfunc=np.mean).reset_index()
 
-st.header("Visualization showing number of hate crimes over past 28 years in a state")
-st.write(lines_state)
-
-#number of crimes in various cities of a state
-crime = df1.groupby("PUB_AGENCY_NAME").size()
-no_crimes = crime.to_frame()
-no_crimes.reset_index()
-no_crimes.columns = ['no_of_crimes']
-no_crimes = no_crimes.reset_index()
-no_crimes = no_crimes.rename({'PUB_AGENCY_NAME': 'City'}, axis=1)
-#st.write(no_crimes.head())
-
-hist = alt.Chart(no_crimes).mark_bar().encode(
-x= alt.X('City', title = 'City', axis=alt.Axis(labelAngle=-0), sort = "-y") , 
-y= alt.Y('no_of_crimes', title = 'Number of Hate Crimes')
-).properties(
-width=1000,
-height=800,
-title = "Number of crimes in the cities of " + state
-).transform_window(
-    rank='rank(no_of_crimes)',
-    sort=[alt.SortField('no_of_crimes', order='descending')]
-).transform_filter(
-alt.datum.rank <= 10)
-     
-st.header("Visualizing number of  Hate crimes in a state")
-st.write(hist)
-
-st.write("Enter one of the following cities in " + state)
-st.write(df['City'])
-
-#select the city for which you want to see the factors
-city = st.text_input("Enter city name")
-if( city in df.values  ):
-    df.drop(df[df['City'] != city].index, inplace = True)
-    print(df.head())
-    source = pd.DataFrame({
-        'X' : ['High School Completion','Income Inequality','Life Expectancy','Racial Segregation','Racial Diversity','Unemployment','Uninsured'],
-        'Y': [df['High School Completion'].tolist()[0],df['Income Inequality'].tolist()[0], df['Life Expectancy'].tolist()[0], df['Neighborhood racial/ethnic segregation'].tolist()[0], df['Racial/ethnic diversity'].tolist()[0], df['Unemployment - annual, neighborhood-level'].tolist()[0], df['Uninsured'].tolist()[0] ],
-        })
-    hist = alt.Chart(source).mark_bar().encode(
-        x= alt.X('X', title = 'metrics', axis=alt.Axis(labelAngle=-0)) , 
-        y= alt.Y('Y', title = 'est')
+    i = 0
+    value = []
+    while i<df2.shape[0]:
+        #State name on click
+        if df2.iloc[i]['state_abbr']==state:
+            if df2.iloc[i]['metric_name']!='Violent crime':
+                value.append(df2.iloc[i]['est'])
+        i+=1    
+    # st.write(value)
+    source = pd.DataFrame({"Factors": ['High school completion', 'Income Inequality', 'Life expectancy', 'Neighborhood racial/ethnic segregation', 'Racial/ethnic diversity', 'Unemployment - annual, neighborhood-level', 'Uninsured'], "value": value})
+    pie = alt.Chart(source).mark_arc().encode(
+        theta=alt.Theta(field="value", type="quantitative"),
+        color=alt.Color(field="Factors", type="nominal"),
+        tooltip = [alt.Tooltip('value')]
     ).properties(
-        width=800,
-        height=800,
-        title = "Well-Being Factors Distribution for the City of " + city)
-        
-    st.header("Visualizing well-being factors of a city")
-    st.write(hist)
-    
-    
-    
-    df1.drop(df1[df1['PUB_AGENCY_NAME'] != city].index, inplace = True)
-    year = df1.groupby("DATA_YEAR").size()
-    year = year.to_frame()
-    year = year.reset_index()
-    year.columns = year.columns.astype(str)
-    year['DATA_YEAR'] = year.DATA_YEAR.astype(str)
-    
-    #st.write(year)
+        title = "Well-Being Factors Distribution for the State"
+    )
+    st.write(pie)
 
-    lines = alt.Chart(year).mark_line().encode(
+
+    st.write(df1['STATE_ABBR'])
+
+    #selecting only the cities in the selected state
+    df.drop(df[df['STATE_ABBR'] != state].index, inplace = True)
+    df1.drop(df1[df1['STATE_ABBR'] != state].index, inplace = True)
+    
+    #select the state for which you want to see the timeline
+    state_year = df1.groupby("DATA_YEAR").size()
+    state_year = state_year.to_frame()
+    state_year = state_year.reset_index()
+    state_year.columns = state_year.columns.astype(str)
+    state_year['DATA_YEAR'] = state_year.DATA_YEAR.astype(str)
+
+    #st.write(state_year)
+    lines_state = alt.Chart(state_year).mark_line().encode(
     x=alt.X('DATA_YEAR' , scale = alt.Scale(zero=False), title = 'Year', axis=alt.Axis(labelAngle=-0)),
     y=alt.Y('0', scale = alt.Scale(zero=False) ,  title =' Number of Crimes')
     ).properties(
-    width=800,
+    width=1000,
     height=300,
-    title = "Timeline showing the number of hate crimes in  " + city)
-    
-    st.header("Visualization showing number of hate crimes over past 28 years in a city")
-    st.write(lines)
-    
-      
-else:
-    st.write("Please choose a city from the list provided")
+    title = "Timeline showing the number of  hate crimes in  " + state)
+
+    st.header("Visualization showing number of hate crimes over past 28 years in a state")
+    st.write(lines_state)
+
+    #number of crimes in various cities of a state
+    crime = df1.groupby("PUB_AGENCY_NAME").size()
+    no_crimes = crime.to_frame()
+    no_crimes.reset_index()
+    no_crimes.columns = ['no_of_crimes']
+    no_crimes = no_crimes.reset_index()
+    no_crimes = no_crimes.rename({'PUB_AGENCY_NAME': 'City'}, axis=1)
+    #st.write(no_crimes.head())
+
+    hist = alt.Chart(no_crimes).mark_bar().encode(
+    x= alt.X('City', title = 'City', axis=alt.Axis(labelAngle=-0), sort = "-y") , 
+    y= alt.Y('no_of_crimes', title = 'Number of Hate Crimes')
+    ).properties(
+    width=1000,
+    height=800,
+    title = "Number of crimes in the cities of " + state
+    ).transform_window(
+        rank='rank(no_of_crimes)',
+        sort=[alt.SortField('no_of_crimes', order='descending')]
+    ).transform_filter(
+    alt.datum.rank <= 10)
+        
+    st.header("Visualizing number of  Hate crimes in a state")
+    st.write(hist)
+
+    st.write("Enter one of the following cities in " + state)
+    st.write(df['City'])
+
+    #select the city for which you want to see the factors
+    city = st.text_input("Enter city name")
+    if( city in df.values  ):
+        df.drop(df[df['City'] != city].index, inplace = True)
+        print(df.head())
+        source = pd.DataFrame({
+            'X' : ['High School Completion','Income Inequality','Life Expectancy','Racial Segregation','Racial Diversity','Unemployment','Uninsured'],
+            'Y': [df['High School Completion'].tolist()[0],df['Income Inequality'].tolist()[0], df['Life Expectancy'].tolist()[0], df['Neighborhood racial/ethnic segregation'].tolist()[0], df['Racial/ethnic diversity'].tolist()[0], df['Unemployment - annual, neighborhood-level'].tolist()[0], df['Uninsured'].tolist()[0] ],
+            })
+        hist = alt.Chart(source).mark_bar().encode(
+            x= alt.X('X', title = 'metrics', axis=alt.Axis(labelAngle=-0)) , 
+            y= alt.Y('Y', title = 'est')
+        ).properties(
+            width=800,
+            height=800,
+            title = "Well-Being Factors Distribution for the City of " + city)
+            
+        st.header("Visualizing well-being factors of a city")
+        st.write(hist)
+        
+        
+        
+        df1.drop(df1[df1['PUB_AGENCY_NAME'] != city].index, inplace = True)
+        year = df1.groupby("DATA_YEAR").size()
+        year = year.to_frame()
+        year = year.reset_index()
+        year.columns = year.columns.astype(str)
+        year['DATA_YEAR'] = year.DATA_YEAR.astype(str)
+        
+        #st.write(year)
+
+        lines = alt.Chart(year).mark_line().encode(
+        x=alt.X('DATA_YEAR' , scale = alt.Scale(zero=False), title = 'Year', axis=alt.Axis(labelAngle=-0)),
+        y=alt.Y('0', scale = alt.Scale(zero=False) ,  title =' Number of Crimes')
+        ).properties(
+        width=800,
+        height=300,
+        title = "Timeline showing the number of hate crimes in  " + city)
+        
+        st.header("Visualization showing number of hate crimes over past 28 years in a city")
+        st.write(lines)
+        
+        
+    else:
+        st.write("Please choose a city from the list provided")
     
 
     
-#Pie Chart 
-alt.data_transformers.disable_max_rows()
-df1 = df_city
-# df1 = pd.read_csv("https://raw.githubusercontent.com/CMU-IDS-2022/final-project-crime-scene/main/data/city_data.csv")
-df2 = df1.pivot_table(index=['state_abbr','metric_name'],values = 'est',aggfunc=np.mean).reset_index()
-# st.write(df2)
-
-i = 0
-value = []
-while i<df2.shape[0]:
-    #State name on click
-    if df2.iloc[i]['state_abbr']==state:
-        if df2.iloc[i]['metric_name']!='Violent crime':
-            value.append(df2.iloc[i]['est'])
-    i+=1    
-# st.write(value)
-source = pd.DataFrame({"Factors": ['High school completion', 'Income Inequality', 'Life expectancy', 'Neighborhood racial/ethnic segregation', 'Racial/ethnic diversity', 'Unemployment - annual, neighborhood-level', 'Uninsured'], "value": value})
-pie = alt.Chart(source).mark_arc().encode(
-    theta=alt.Theta(field="value", type="quantitative"),
-    color=alt.Color(field="Factors", type="nominal"),
-    tooltip = [alt.Tooltip('value')]
-).properties(
-    title = "Well-Being Factors Distribution for the State"
-)
-
-
-st.write(pie)
