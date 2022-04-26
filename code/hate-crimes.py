@@ -158,10 +158,10 @@ if additional:
             (alt.datum.rank < 1000)
         )
 
-        st.write(offenderRace) | st.write(victimRace)
+        st.write(offenderRace|victimRace) #| st.write(victimRace)
 
         #Line graph of total recorded crimes per year
-        chart = alt.Chart(df_hate.head(1000)).mark_line().encode(
+        chart = alt.Chart(df_hate.head(5000)).mark_line().encode(
             alt.X('DATA_YEAR'),
             alt.Y('VICTIM_COUNT', aggregate='sum')
         )
@@ -170,6 +170,8 @@ if additional:
         st.write(chart)
     else:
         #Plotting High School Completion 
+        # df_city_expl = pd.read_csv("https://raw.githubusercontent.com/CMU-IDS-2022/final-project-crime-scene/main/data/city_data.csv")
+        st.write(df_city)
         data_final1  = df_city[df_city["metric_name"].isin(["High school completion"])]
         data_final2  = data_final1[data_final1["group_name"].isin(["total population"])]
         data_final3 = data_final2.sort_values(by='est', ascending=False)

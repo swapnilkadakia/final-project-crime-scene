@@ -55,7 +55,7 @@ def prep_city_dataset():
     data_columns  = data[data["metric_name"].isin(["Life expectancy", "High school completion", "Housing cost,excessive","Income Inequality","Neighborhood racial/ethnic segregation","Racial/ethnic diversity","Unemployment - annual, neighborhood-level","Violent crime","Uninsured"])]
     df  = data_columns[data_columns["group_name"].isin(["total population"])]
     df.isnull().sum(axis = 0)
-    df = df[['state_abbr','city_name' ,'metric_name', 'est', 'data_yr_type']]
+    df = df[['state_abbr','city_name' ,'metric_name', 'est', 'data_yr_type','group_name']]
     df= df.reset_index()
     df = df.drop('index', 1)
     df = df[df['est'].notna()]
