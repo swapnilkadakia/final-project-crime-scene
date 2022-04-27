@@ -1,0 +1,11 @@
+streamlit
+pandas
+numpy
+altair
+sklearn
+cleanup
+matplotlib
+seaborn
+umap-learn
+vega_datasets
+streamlit_option_menu
