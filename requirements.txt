@@ -5,3 +5,4 @@ altair
 sklearn
 cleanup
 matplotlib
+seaborn
