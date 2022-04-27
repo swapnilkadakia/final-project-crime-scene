@@ -450,6 +450,8 @@ elif choose =='Clustering':
     #Clustering   
     st.header("Clustering")
     st.write("In this section, we will be exploring clustering techniques on features such as Bias, Location, Offender Race, Crime, and Victim Type. DBSCAN and DensMAP algorithms were used to reduce the features and cluster the data.")    
+    st.write("Clustering helps us visualize our based on how the data is grouped according to certain characteristics. We can see the impact of these characteristics by iteratively adding them to our algorithm. The groupings produced allow us to see how similar characteristics in incidents are common in certain crimes. With clustering, we can direct our analysis to how crimes have occurred in the past and help inform us of where our further research should take us.")
+
     selection = st.multiselect("Select your features",options = ['Bias','Crime','Location','Offender Race','Victim Type'])
 
     #make selection for clustering
@@ -461,7 +463,7 @@ elif choose =='Feature Importance':
     st.title("Feature Importance")
     df_features_final1 = load_features_final("https://raw.githubusercontent.com/CMU-IDS-2022/final-project-crime-scene/main/data/features_final.csv")
 
-    st.write("In this section, we will be exploring the important features that impact hate crimes in US states. This graph can be customized to be displayed for the states and the feature the user is interested in ")
+    st.write("In this section, we will be exploring the important features that impact hate crimes in US states. This graph can be customized to be displayed for the states and the features the user is interested in.")
 
     #Feature exploration
     st.header('Feature Exploration')
