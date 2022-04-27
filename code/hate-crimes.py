@@ -325,18 +325,13 @@ elif choose == 'Exploratory Data Analysis':
 elif choose == "Hate Crime Distribution":
     #US MAP
     # Title 
-    st.title("Hate Crime Distribution")
-
-    # df1 = df_hate
-    
+    st.title("Hate Crime Distribution")    
 
     #displaying the entire united states timeline
     # st.write(type(df_hate['DATA_YEAR'][0]))
-    df_year = df_hate
+    df_year = df_hate['DATA_YEAR'].copy().reset_index()
     # df_year = load_features_final("https://raw.githubusercontent.com/CMU-IDS-2022/final-project-crime-scene/main/data/hate_crime.csv")
-    # st.write(type(df_year['DATA_YEAR'][0]))
-    # st.write(df_year['DATA_YEAR'].min())
-    #st.write(state_year)
+
     
     st.subheader("Visualization showing number of hate crimes over past 28 years in the United States of America")
     st.write("This visualization depicts the evolution of hate crime statistics in the United States over the last 20 years. The x-axis represents every year from 1991 to 2020, and the y-axis is the total number of cases. The sharp spikes and drops in hate crimes can be linked to major events that occurred in the United States. Riots, presidential elections, policy decisions, and global pandemics are some of these events. The most concerning aspect of this graph is the never-before-seen surge in the number of incidents after the Covid-19 Pandemic began in 2019. ")
@@ -350,7 +345,6 @@ elif choose == "Hate Crime Distribution":
     df_year.drop(df_year[df_year['DATA_YEAR'] <= year_range[0]-1].index, inplace = True)
     df_year.drop(df_year[df_year['DATA_YEAR'] >= year_range[1]+1].index, inplace = True)
 
-    # st.write(df_year)
 
     lines_state = alt.Chart(df_year).mark_line().encode(
     x=alt.X('DATA_YEAR:N' , scale = alt.Scale(zero=False), title = 'Year', axis=alt.Axis(labelAngle=-0)),
@@ -371,8 +365,8 @@ elif choose == "Hate Crime Distribution":
 
 
     # Importing Data
-    # df =pd.read_csv("https://raw.githubusercontent.com/CMU-IDS-2022/final-project-crime-scene/main/data/hate_crime.csv")
-    df = df_hate
+    df =pd.read_csv("https://raw.githubusercontent.com/CMU-IDS-2022/final-project-crime-scene/main/data/hate_crime.csv")
+    # df = df_hate
     alt.data_transformers.disable_max_rows()
     df_HeatMap = df[['BIAS_DESC','OFFENDER_RACE']].copy()
 
