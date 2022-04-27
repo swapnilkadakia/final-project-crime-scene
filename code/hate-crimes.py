@@ -148,14 +148,6 @@ with st.sidebar:
 with st.spinner(text="Loading data..."):
     df_hate,df_city = load_data()
 
-# st.write("FBI Hate Crimes Dataset")    
-# st.write(df_hate.head())
-
-# st.write("Cities Dataset")
-# st.write(df_city.head())
-
-# additional = st.checkbox('Would you like to view additional data?')
-
 if choose == 'Home':
     st.title("Home")
     st.write("In 2018, on the morning of October 27, Robert Bowers entered the Tree of Life Synagogue in Pittsburgh, PA, yelled “All Jews must die,” and opened fire on the congregants. He was armed with an assault rifle and several handguns, and killed eleven congregants and wounded six others, four of whom are police officers. This was one of the deadliest attacks on the Jewish Community in the United States.")
@@ -324,11 +316,9 @@ elif choose == 'Exploratory Data Analysis':
 
 elif choose == "Hate Crime Distribution":
     #US MAP
-    # Title 
     st.title("Hate Crime Distribution")    
 
     #displaying the entire united states timeline
-    # st.write(type(df_hate['DATA_YEAR'][0]))
     df_year = df_hate['DATA_YEAR'].copy().reset_index()
     # df_year = load_features_final("https://raw.githubusercontent.com/CMU-IDS-2022/final-project-crime-scene/main/data/hate_crime.csv")
 
@@ -341,7 +331,6 @@ elif choose == "Hate Crime Distribution":
                         max_value=int(df_year['DATA_YEAR'].max()),
                         value=(int(df_year['DATA_YEAR'].min()), int(df_year['DATA_YEAR'].max())))
 
-    st.write(year_range)
     df_year.drop(df_year[df_year['DATA_YEAR'] <= year_range[0]-1].index, inplace = True)
     df_year.drop(df_year[df_year['DATA_YEAR'] >= year_range[1]+1].index, inplace = True)
 
@@ -529,7 +518,6 @@ elif choose =='Feature Importance':
                 height=200,
                 title = "'{}' features".format(state))
 
-                # chartList.append(exploration_chart)
                 st.write(exploration_chart)
     
 
