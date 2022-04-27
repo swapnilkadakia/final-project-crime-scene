@@ -6,6 +6,6 @@ sklearn
 cleanup
 matplotlib
 seaborn
-umap
+umap-learn
 vega_datasets
 streamlit_option_menu
