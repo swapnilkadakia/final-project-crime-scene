@@ -371,8 +371,8 @@ elif choose == "Hate Crime Distribution":
 
 
     # Importing Data
-    df =pd.read_csv("https://raw.githubusercontent.com/CMU-IDS-2022/final-project-crime-scene/main/data/hate_crime.csv")
-    # df = df_hate
+    # df =pd.read_csv("https://raw.githubusercontent.com/CMU-IDS-2022/final-project-crime-scene/main/data/hate_crime.csv")
+    df = df_hate
     alt.data_transformers.disable_max_rows()
     df_HeatMap = df[['BIAS_DESC','OFFENDER_RACE']].copy()
 
