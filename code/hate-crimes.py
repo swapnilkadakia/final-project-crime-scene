@@ -331,7 +331,10 @@ elif choose == "Hate Crime Distribution":
     
 
     #displaying the entire united states timeline
-    df_year = load_features_final("https://raw.githubusercontent.com/CMU-IDS-2022/final-project-crime-scene/main/data/hate_crime.csv")
+    # st.write(type(df_hate['DATA_YEAR'][0]))
+    df_year = df_hate
+    # df_year = load_features_final("https://raw.githubusercontent.com/CMU-IDS-2022/final-project-crime-scene/main/data/hate_crime.csv")
+    # st.write(type(df_year['DATA_YEAR'][0]))
     # st.write(df_year['DATA_YEAR'].min())
     #st.write(state_year)
     
@@ -369,6 +372,7 @@ elif choose == "Hate Crime Distribution":
 
     # Importing Data
     df =pd.read_csv("https://raw.githubusercontent.com/CMU-IDS-2022/final-project-crime-scene/main/data/hate_crime.csv")
+    # df = df_hate
     alt.data_transformers.disable_max_rows()
     df_HeatMap = df[['BIAS_DESC','OFFENDER_RACE']].copy()
 
