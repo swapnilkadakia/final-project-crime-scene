@@ -1,6 +1,7 @@
 # CMU Interactive Data Science Final Project
 
 * **Online URL**: https://share.streamlit.io/cmu-ids-2022/final-project-crime-scene/main/code/hate-crimes.py
+* **Report.md URL: https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/main/Report.md
 * **Team members**:
   * Contact person: swapnilk@andrew.cmu.edu
   * aaronho@andrew.cmu.edu
@@ -15,12 +16,15 @@ The data science problem we aim to address is how human well-being in cities and
 ## Work distribution
 
 Team division:
-Feature Importance – Swapnil
-Clustering Techniques – Aaron
-Project visualization – Neema, Swapnil, Natasha, Aaron
-PPT – Neema
-Report – Natasha, Neema, Aaron, Swapnil
-Video - Natasha , Neema, Aaron, Swapnil
+- Feature Importance – Swapnil
+- Clustering Techniques – Aaron
+- Project visualization – Neema, Swapnil, Natasha, Aaron
+- PPT – Neema
+- Report – Natasha, Neema, Aaron, Swapnil
+- Video - Natasha , Neema, Aaron, Swapnil
+
+## Commentary
+During the project process we were fortunate to be able to work with a dataset that was comprehensive and covered a substantial portion of the years we wanted to look at for our project. This dataset, FBI Hate Crimes, formed the basis of our analysis and allowed us to combine it with our datasets such as our cities dataset regarding demographic information. Because it was a clean csv file, we didn't need to do too much data cleanup besides engineer our features for analysis. The main challenge we ran into was consolidating all our code as well as reducing the size of the data we are using. Streamlit ran into problems with charts utilizing a larger sample, so we therefore had to reduce the features in order to allow it to still compile in a reasonable amount of time. Overall, we are pleased with how our application turned out and we are delighted to present some of the functionality that we incorporated into our application.
 
 ## Deliverables
 
