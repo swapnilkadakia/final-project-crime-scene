@@ -1,7 +1,8 @@
 # CMU Interactive Data Science Final Project
 
 * **Online URL**: https://share.streamlit.io/cmu-ids-2022/final-project-crime-scene/main/code/hate-crimes.py
-* **Report.md URL: https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/main/Report.md
+* **Report.md URL**: https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/main/Report.md
+* **Video URL**: 
 * **Team members**:
   * Contact person: swapnilk@andrew.cmu.edu
   * aaronho@andrew.cmu.edu
@@ -41,7 +42,7 @@ During the project process we were fortunate to be able to work with a dataset t
 
 - [X] All code for the project should be in the repo.
 - [X] Update the **Online URL** above to point to your deployed project.
-- [ ] A detailed [project report](Report.md).  Each student should submit the URL that points to this file in their github repo on Canvas.
+- [X] A detailed [project report](Report.md).  Each student should submit the URL that points to this file in their github repo on Canvas.
 - [ ] A 5 minute video demonstration.  Upload the video to this github repo and link to it from your report.
 
 ### Run Instructions:
