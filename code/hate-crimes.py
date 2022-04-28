@@ -134,14 +134,14 @@ def plot_cluster(selection):
 
 #Formatting
 with st.sidebar:
-    choose = option_menu("Hate Crimes in the US", ["Home","Exploratory Data Analysis","Hate Crime Distribution", "Clustering","Feature Importance" ,"Exploring States & Cities"],
+    choose = option_menu("Hate Crimes in US", ["Home","Exploratory Data Analysis","Hate Crime Distribution", "Clustering","Feature Importance" ,"Exploring States & Cities"],
                          icons=['house','table', 'map', 'circle','bar-chart-line' ,'building'],
-                         menu_icon="app", default_index=0,
+                         menu_icon="bank", default_index=0,
                          styles={
-        "container": {"padding": "5!important", "background-color": "#000000"},
-        "icon": {"color": "blue", "font-size": "25px"}, 
+        "container": {"padding": "5!important"},
+        "icon": {"color": "black", "font-size": "25px"}, 
         "nav-link": {"font-size": "16px", "text-align": "left", "margin":"0px", "--hover-color": "#eee"},
-        "nav-link-selected": {"background-color": "#02ab21"},
+        "nav-link-selected": {"background-color": "#8282ef"},
     }
     )
 
@@ -168,11 +168,12 @@ elif choose == 'Exploratory Data Analysis':
     col2.subheader("Cities Dataset")
     col2.write(df_city.head())
 
-    option = st.selectbox("Select your features",options=['Hate Crimes',"Wellbeing of Cities"])
+    option = st.selectbox("Select the dataset you want to explore",options=['Hate Crimes',"Wellbeing of Cities"])
 
     if option == 'Hate Crimes':
 
         st.subheader("Total Recorded Crime Count per State")
+        st.write("The below bar graph represents the total number of crimes committed per state in the United States.")
         cities = alt.Chart(df_hate.head(1000)).mark_bar().encode(
         x=alt.X("STATE_NAME",  sort="-y"),
         y=alt.Y("count()")
@@ -181,10 +182,11 @@ elif choose == 'Exploratory Data Analysis':
         height=600,
         title = "Top Cities with Reported Hate Crimes").configure_mark(color='#F1B46D')
         st.write(cities)
-        st.write("The above bar graph represents the total number of crimes committed per state in the United States. In terms of the crimes recorded from 1990 to 2020, California has the highest crime rate with over 35,000 crimes recorded.")
 
         # Offender Race 
         st.subheader("Total Recorded Crime Count per Offfender's Race and Victim's Race")
+        st.write("The bar graphs below represents the total number of crimes committed per offender racial group and per victim group in the United States.")
+
         offenderRace = alt.Chart(df_hate.head(1000)).mark_bar().encode(
             x=alt.X("OFFENDER_RACE",  sort="-y"),
             y=alt.Y("count()")
@@ -198,7 +200,7 @@ elif choose == 'Exploratory Data Analysis':
         bd= bd.apply(str)
         bd = pd.DataFrame(bd)
         victimRace = alt.Chart(bd.head(1000)).mark_bar().encode(
-            x=alt.X("BIAS_DESC",  sort="-y"),
+            x=alt.X("BIAS_DESC",title='Bias_Type',  sort="-y"),
             y=alt.Y("count()")
         ).transform_window(
             rank='rank(BIAS_DESC)'
@@ -212,12 +214,11 @@ elif choose == 'Exploratory Data Analysis':
         offend, vict = st.columns(2)
         offend.write(offenderRace)
         vict.write(victimRace)
-        st.write("The above bar graphs represents the total number of crimes committed per offender racial group and per victim group in the United States. In terms of the crimes recorded from 1990 to 2020, most of the crimes that were recorded did not specify the offender’s race and were Anti-Black crimes committed against African Americans.")
 
     else:
         #Plotting High School Completion 
         st.subheader("High School Completion")
-        st.write("The above bar graph represents the high school completion rates across the United States. Minnesota has the highest high school completion rate of 98.3.")
+        st.write("The below bar graph represents the high school completion rates across the United States.")
         data_final1  = df_city[df_city["metric_name"].isin(["High school completion"])]
         data_final2  = data_final1[data_final1["group_name"].isin(["total population"])]
         data_final3 = data_final2.sort_values(by='est', ascending=False)
@@ -225,7 +226,7 @@ elif choose == 'Exploratory Data Analysis':
 
         High_School_Completion_bar = alt.Chart(data_final3).mark_bar(clip=True).encode(
             x=alt.X('state_abbr', sort = None),
-            y=alt.Y('est', scale=alt.Scale(domain=[85,100]))
+            y=alt.Y('est',title='metric', scale=alt.Scale(domain=[85,100]))
         ).properties(
         title = "High School Completion Well-Being Factor across States").configure_mark(color='#C64863')
 
@@ -233,7 +234,7 @@ elif choose == 'Exploratory Data Analysis':
 
         #Plotting Life expectancy 
         st.subheader("Life expectancy")
-        st.write("The above bar graph represents the life expectancy rates across the United States. California has the highest life expectancy rate of 85.5.")
+        st.write("The below bar graph represents the life expectancy rates across the United States.")
         data_final1  = df_city[df_city["metric_name"].isin(["Life expectancy"])]
         data_final2  = data_final1[data_final1["group_name"].isin(["total population"])]
         data_final3 = data_final2.sort_values(by='est', ascending=False)
@@ -241,7 +242,7 @@ elif choose == 'Exploratory Data Analysis':
 
         Life_expectancy_bar = alt.Chart(data_final3).mark_bar(clip=True).encode(
             x=alt.X('state_abbr', sort = None),
-            y=alt.Y('est', scale=alt.Scale(domain=[74,86]))
+            y=alt.Y('est',title='metric', scale=alt.Scale(domain=[74,86]))
         ).properties(
         title = "Life expectancy Well-Being Factor across States").configure_mark(color='#E4CDDD')
         
@@ -250,7 +251,7 @@ elif choose == 'Exploratory Data Analysis':
 
         #Plotting Income Inequality 
         st.subheader("Income Inequality ")
-        st.write("The above bar graph represents the income inequality rates across the United States. Washington has the highest income inequality rate of around 56.")
+        st.write("The below bar graph represents the income inequality rates across the United States.")
         data_final1  = df_city[df_city["metric_name"].isin(["Income Inequality"])]
         data_final2  = data_final1[data_final1["group_name"].isin(["total population"])]
         data_final3 = data_final2.sort_values(by='est', ascending=False)
@@ -258,7 +259,7 @@ elif choose == 'Exploratory Data Analysis':
 
         Income_Inequality_bar = alt.Chart(data_final3).mark_bar(clip=True).encode(
             x=alt.X('state_abbr', sort = None),
-            y=alt.Y('est', scale=alt.Scale(domain=[0,60]))
+            y=alt.Y('est',title='metric', scale=alt.Scale(domain=[0,60]))
         ).properties(
         title = "Income Inequality Well-Being Factor across States").configure_mark(color='#726CA8')
 
@@ -267,7 +268,7 @@ elif choose == 'Exploratory Data Analysis':
 
         #Plotting Neighborhood racial/ethnic segregation
         st.subheader("Neighborhood racial/ethnic segregation")
-        st.write("The above bar graph represents the neighborhood racial/ethnic segregation rates across the United States. Illinois has the highest neighborhood racial/ethnic segregation rate of 43.5.")
+        st.write("The below bar graph represents the neighborhood racial/ethnic segregation rates across the United States.")
         data_final1  = df_city[df_city["metric_name"].isin(["Neighborhood racial/ethnic segregation"])]
         data_final2  = data_final1[data_final1["group_name"].isin(["total population"])]
         data_final3 = data_final2.sort_values(by='est', ascending=False)
@@ -275,7 +276,7 @@ elif choose == 'Exploratory Data Analysis':
 
         Neighborhood_racial_ethnic_segregation_bar = alt.Chart(data_final3).mark_bar(clip=True).encode(
             x=alt.X('state_abbr', sort = None),
-            y=alt.Y('est', scale=alt.Scale(domain=[0,45]))
+            y=alt.Y('est',title='metric', scale=alt.Scale(domain=[0,45]))
         ).properties(
         title = "Neighborhood racial/ethnic segregation Well-Being Factor across States").configure_mark(color='#D9BAD2')
 
@@ -283,7 +284,7 @@ elif choose == 'Exploratory Data Analysis':
 
         #Plotting Racial/ethnic diversity
         st.subheader("Plotting Racial/ethnic diversity")
-        st.write("The above bar graph represents the racial/ethnic diversity rates across the United States. California has the highest racial/ethnic diversity rate of 94.5.")
+        st.write("The below bar graph represents the racial/ethnic diversity rates across the United States.")
         data_final1  = df_city[df_city["metric_name"].isin(["Racial/ethnic diversity"])]
         data_final2  = data_final1[data_final1["group_name"].isin(["total population"])]
         data_final3 = data_final2.sort_values(by='est', ascending=False)
@@ -291,7 +292,7 @@ elif choose == 'Exploratory Data Analysis':
 
         Racial_ethnic_diversity_bar = alt.Chart(data_final3).mark_bar(clip=True).encode(
             x=alt.X('state_abbr', sort = None),
-            y=alt.Y('est', scale=alt.Scale(domain=[35,100]))
+            y=alt.Y('est',title='metric', scale=alt.Scale(domain=[35,100]))
         ).properties(
         title = "Racial/ethnic diversity Well-Being Factor across States").configure_mark(color='#5782A6')
 
@@ -300,7 +301,7 @@ elif choose == 'Exploratory Data Analysis':
     
         #Plotting Unemployment Factor
         st.subheader("Plotting Unemployment Factor")
-        st.write("The above bar graph represents the unemployment rates across the United States. Michigan has the highest unemployment rate at 19.5.")
+        st.write("The below bar graph represents the unemployment rates across the United States.")
         data_final1  = df_city[df_city["metric_name"].isin(["Unemployment - annual, neighborhood-level"])]
         data_final2  = data_final1[data_final1["group_name"].isin(["total population"])]
         data_final3 = data_final2.sort_values(by='est', ascending=False)
@@ -308,7 +309,7 @@ elif choose == 'Exploratory Data Analysis':
 
         Unemployment_Factor_bar = alt.Chart(data_final3).mark_bar(clip=True).encode(
             x=alt.X('state_abbr', sort = None),
-            y=alt.Y('est', scale=alt.Scale(domain=[0,20]))
+            y=alt.Y('est',title='metric', scale=alt.Scale(domain=[0,20]))
         ).properties(
         title = "Unemployment Factor Well-Being Factor across States").configure_mark(color='#34a230')
 
@@ -323,8 +324,8 @@ elif choose == "Hate Crime Distribution":
     # df_year = load_features_final("https://raw.githubusercontent.com/CMU-IDS-2022/final-project-crime-scene/main/data/hate_crime.csv")
 
     
-    st.subheader("Visualization showing number of hate crimes over past 28 years in the United States of America")
-    st.write("This visualization depicts the evolution of hate crime statistics in the United States over the last 20 years. The x-axis represents every year from 1991 to 2020, and the y-axis is the total number of cases. The sharp spikes and drops in hate crimes can be linked to major events that occurred in the United States. Riots, presidential elections, policy decisions, and global pandemics are some of these events. The most concerning aspect of this graph is the never-before-seen surge in the number of incidents after the Covid-19 Pandemic began in 2019. ")
+    st.subheader("Visualization showing number of hate crimes over past 30 years in the United States of America")
+    st.write("The x-axis represents every year from 1991 to 2020, and the y-axis is the total number of cases. The sharp spikes and drops in hate crimes can be linked to major events that occurred in the United States. Riots, presidential elections, policy decisions, and global pandemics are some of these events. The most concerning aspect of this graph is the never-before-seen surge in the number of incidents after the Covid-19 Pandemic began in 2019.")
    
     year_range = st.slider('DATA_YEAR',
                         min_value=int(df_year['DATA_YEAR'].min()),
@@ -360,7 +361,7 @@ elif choose == "Hate Crime Distribution":
     df_HeatMap = df[['BIAS_DESC','OFFENDER_RACE']].copy()
 
     #Drawing up the US MAP
-    st.subheader("US MAP")
+    st.subheader("Choropleth Map of the United States")
 
     #Adding a new column Frequency, that holds the number of cases in each state.
     df['Frequency']=df['STATE_NAME'].map(df['STATE_NAME'].value_counts())
@@ -379,7 +380,7 @@ elif choose == "Hate Crime Distribution":
     click = alt.selection_multi(fields=['state'])
 
     # Building and displaying the US MAP
-    st.write("The visualization depicts a Choropleth Map of the United States, based on the total number of cases in each state and a Bar Graph of the top 15 states with the highest number of hate crimes. With selection of states on the US map, the same states get highlighted on the bar graph. California has the highest number of hate crime cases which is followed by New York.")
+    st.write("The visualization depicts a Choropleth Map of the United States, based on the total number of cases in each state and a Bar Graph of the top 15 states with the highest number of hate crimes. With selection of states on the US map, the same states get highlighted on the bar graph.")
     displayUSMap = alt.Chart(states).mark_geoshape().encode(
         color=alt.Color('Frequency:Q', title = "No. of cases"),         
         tooltip=['Frequency:Q', alt.Tooltip('Frequency:Q')],    
@@ -403,7 +404,8 @@ elif choose == "Hate Crime Distribution":
         x='Frequency',
         opacity=alt.condition(click, alt.value(1), alt.value(0.2)),
         color='Frequency',
-        y=alt.Y('state', sort='x'))
+        y=alt.Y('state', sort='x')).properties(
+        width=750)
     .add_selection(click))
 
     st.write(displayUSMap & bars)    
@@ -412,7 +414,7 @@ elif choose == "Hate Crime Distribution":
 
     # Plotting the Offender Race vs Victim's Hate Crime 
     st.subheader("Correlation of Offender's Race to Victim's Hate Crime Type")
-    st.write("The visualization depicts the Victim's Ethnicity is on the x-axis, while the Offender's Race is shown on the y-axis in this heat map. The graph shows that most hate crimes are committed against African Americans, followed by attacks on the LGBTQ+ community, as corroborated by clustering. We also see that the most common offender is white, which may be since white people make up the bulk of the population in the United States. Crimes against African Americans committed by white offenders are the most serious type of hate crime, according to the below visualization.")
+    st.write("The visualization depicts the Victim's Ethnicity is on the x-axis, while the Offender's Race is shown on the y-axis in this heat map. The gradient of hate crimes represents the frequency of hate crimes against that particular victim type.")
     df_HeatMap = df_HeatMap.dropna()
     df_HeatMap['VictimHateCrime'] = pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Indian"), 'Anti-Indian',
                                     pd.np.where(df_HeatMap.BIAS_DESC.str.contains("Arab"), 'Anti-Arab',
@@ -463,21 +465,27 @@ elif choose =='Feature Importance':
     st.title("Feature Importance")
     df_features_final1 = load_features_final("https://raw.githubusercontent.com/CMU-IDS-2022/final-project-crime-scene/main/data/features_final.csv")
 
-    st.write("In this section, we will be exploring the important features that impact hate crimes in US states. This graph can be customized to be displayed for the states and the features the user is interested in.")
-
+    st.write("The feature importance (variable importance) describes which features are relevant and helps us give a better understanding of what factors are affecting the hate crimes in the United States. You can select the features you would like to compare to find which feature has a greater impact on the hate crimes in the United States.")
     #Feature exploration
     st.header('Feature Exploration')
 
+    df_features_final1 = df_features_final1.rename({'Unemployment - annual, neighborhood-level': 'Unemployment'}, axis=1)
+    df_features_final1 = df_features_final1.rename({'Neighborhood racial/ethnic segregation': 'Racial Segregation'}, axis=1)
+
     states = df_features_final1['STATE_ABBR'].unique()
     features = df_features_final1.columns[2:9]
-
     
-    feat_selection = st.multiselect("Select the features you want to explore", options = features)
+    feat_selection = st.multiselect("Select the features/well-being factors you want to explore", options = features)
 
     if feat_selection:
      #running ML for feature importance
         df_features_final1 = load_features_final("https://raw.githubusercontent.com/CMU-IDS-2022/final-project-crime-scene/main/data/features_final.csv")
+
+        df_features_final1 = df_features_final1.rename({'Unemployment - annual, neighborhood-level': 'Unemployment'}, axis=1)
+        df_features_final1 = df_features_final1.rename({'Neighborhood racial/ethnic segregation': 'Racial Segregation'}, axis=1)
+
         df_m2 = df_features_final1
+
 
         Y_m2 = df_m2["no_of_crimes"]  
         X_m2 = df_m2[feat_selection]
@@ -492,7 +500,7 @@ elif choose =='Feature Importance':
         for i in range(len(importance)):
             print(X_m2.columns[i] + " : "+ str(importance[i].round(6)))
                 
-
+        
         figure(figsize=(16, 10), dpi=80)
                 
         # plot feature importance
@@ -501,7 +509,9 @@ elif choose =='Feature Importance':
 
         st.pyplot(plt)
 
-        state_selection = st.multiselect("Select the states you want to explore", options = states)
+        st.subheader("Comparing Features in States")
+        st.write("Select the state for which you want to visualize the correlation of the features with the number of hate crimes in that state. You can select multiple states and compare the feature of the various states")
+        state_selection = st.multiselect("", options = states)
 
         if state_selection:
             tansposed = df_features_final1[df_features_final1['STATE_ABBR'].isin(state_selection)][feat_selection].T.reset_index()
@@ -516,8 +526,8 @@ elif choose =='Feature Importance':
                         alt.Y("index"),
                         alt.Color("index:N")
                     ).properties(
-                width=500,
-                height=200,
+                width=750,
+                height=300,
                 title = "'{}' features".format(state))
 
                 st.write(exploration_chart)
@@ -535,7 +545,7 @@ elif choose == "Exploring States & Cities":
     df_hate_crime_data = df_hate
     df_hate_crime_data = df_hate_crime_data.rename(columns={'state_abbr': 'STATE_ABBR'})
 
-    state = st.text_input("Enter 2 letter state abbreviation")
+    state = st.text_input("Enter 2 letter state abbreviation (Example PA for Pennsylvania)")
     #City Visualization
     df = df_features_final
     df1 = df_hate_crime_data
@@ -563,11 +573,12 @@ elif choose == "Exploring States & Cities":
             color=alt.Color(field="Factors", type="nominal"),
             tooltip = [alt.Tooltip('value')]
         ).properties(
-            title = "Well-Being Factors Distribution for the State"
+            title = "Well-Being Factors Distribution for the State "+state,
+            height = 500,
+            width = 500
         )
         st.write(pie)
 
-        st.write("The line graph and bar graph are interlinked. Selection of a particular time period in the line graph displays the crime rates per city for those years.") 
 
         #Hist and bar 
         df1 = load_features_final("https://raw.githubusercontent.com/CMU-IDS-2022/final-project-crime-scene/main/data/hate_crime.csv")
@@ -582,7 +593,7 @@ elif choose == "Exploring States & Cities":
         lines_state = alt.Chart(df1).mark_line().encode(
         x=alt.X('DATA_YEAR' , scale = alt.Scale(zero=False), title = 'Year', axis=alt.Axis(labelAngle=-0)),
         y=alt.Y('count(DATA_YEAR)', scale = alt.Scale(zero=False) ,  title =' Number of Crimes'),
-        color= alt.condition(brush, alt.value("red"), alt.value("grey"))
+        color= alt.condition(brush, alt.value("red"), alt.value("black"))
         ).properties(
         width=1000,
         height=300,
@@ -590,7 +601,8 @@ elif choose == "Exploring States & Cities":
         ).add_selection(
         brush)
 
-        st.header("Visualization showing number of hate crimes over past 28 years in a state")
+        st.subheader("Visualization showing number of hate crimes over past 30 years in "+state)
+        st.write("The line graph and bar graph are interlinked. Selection of a particular time period in the line graph displays the crime rates per city for those years and the gradiation of color indicates the total offender count.") 
 
         hist = alt.Chart(df1).mark_bar().encode(
         x= alt.X('PUB_AGENCY_NAME', title = 'City', axis=alt.Axis(labelAngle=-0), sort = "-y") , 
@@ -617,7 +629,7 @@ elif choose == "Exploring States & Cities":
         # #selecting only the cities in the selected state
         df.drop(df[df['STATE_ABBR'] != state].index, inplace = True)
 
-        st.write("In this section, we will be exploring the cities of the US. We will explore the overall hate crimes in the city over the past 3 decades.")
+        st.write("Here, we will be exploring the cities of "+state+ ". Select the city for which you would like to see the hate crimes over the past 30 years.")
         st.write("Enter one of the following cities in " + state)
         st.write(df['City'])
 
@@ -644,7 +656,7 @@ elif choose == "Exploring States & Cities":
             height=300,
             title = "Timeline showing the number of hate crimes in  " + city)
             
-            st.header("Visualization showing number of hate crimes over past 28 years in a city")
+            st.subheader("Visualization showing number of hate crimes over past 30 years in "+city)
             st.write(lines)
             
             
