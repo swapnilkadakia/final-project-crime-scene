@@ -1,7 +1,7 @@
 # Final Project Report
 
-**Project URL**: TODO
-**Video URL**: TODO
+**Project URL**: https://github.com/CMU-IDS-2022/final-project-crime-scene
+**Video URL**: https://youtu.be/QRqiKuS_Ymc
 
 ## Abstract
 The data science problem we aim to address is how human well-being in cities and states influences hate crime patterns over the years. Our approach to this problem is to address these issues and offer a broader exploration into the behaviors, demographics, and other defining features behind the causes of hate crimes. Our approach first provides a high-level overview of the prevalence of hate crimes in the U.S. from 1990 to 2020. Pre-processing the data, clustering, correlation, feature importance, the timeline of hate crimes, hate crime distribution across the United States, variables contributing to the hate crime rate of each state, and analyzing hate crime statistics for cities in each state are all steps in the process. This analysis aligns with our expectation of multiple factors resulting in hate crimes. Our efforts will attempt to simulate that as much as possible. Users can explore the patterns in demographics and behaviors of a particular state and the prevalence of hate crimes in that state. The expectation is that the features associated with a state (i.e., education, racial diversity, income) would help explain patterns in hate crimes in that state. In exploring this relation, we aim to clarify what influences hate crimes and inform policy actions and decisions to address these crimes in cities and states. The further study generated from the conclusions of these results would be to explore the most defining features and focus research on how these features contribute to biases and crime.
