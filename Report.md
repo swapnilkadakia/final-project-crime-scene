@@ -42,7 +42,7 @@ The App is divided into the following six sections:
 
 <img src="https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/e0b1cdeb424ba73ea6b2ed021f1b94a8f11435d2/images/f1.jpg">
 Figure 1: Home Page 
-
+# 
 
 2. Exploratory Data Analysis - Describing the Data Sources, including their provenance and why it was chosen. We also offer extra visuals for each data set used for data exploration.
 For the Hate Crime data set there are two Visualizations:
