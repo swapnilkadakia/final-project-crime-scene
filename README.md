@@ -2,7 +2,7 @@
 
 * **Online URL**: https://share.streamlit.io/cmu-ids-2022/final-project-crime-scene/main/code/hate-crimes.py
 * **Report.md URL**: https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/main/Report.md
-* **Video URL**: 
+* **Video URL**: https://youtu.be/QRqiKuS_Ymc
 * **Team members**:
   * Contact person: swapnilk@andrew.cmu.edu
   * aaronho@andrew.cmu.edu
