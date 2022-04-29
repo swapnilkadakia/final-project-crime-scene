@@ -40,7 +40,129 @@ For pre-processing and cleaning the city_data, we loaded it as a data frame usin
 The App is divided into the following six sections:
 1. Home - Describe the concept of our project, the reasons for choosing this issue, the question we want to address, and the goal we want to achieve through it.
 
+<img src="https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/main/images/f1.PNG">
+Figure 1: Home Page 
+
+2. Exploratory Data Analysis - Describing the Data Sources, including their provenance and why it was chosen. We also offer extra visuals for each data set used for data exploration.
+For the Hate Crime data set there are two Visualizations:
+2.1 Total Number of Crimes Recorded over the last 30 years in the United States represented as a sorted descending bar graph in the order of hate crime count in states. 
+2.2 Total Recorded Hate Crimes as per Offender’s Race, which shows which races are responsible for committing the incident in a decreasing fashion. And a similar visualization for the Victim’s Hate Crime Type shows the most attacked racial group in a decreasing manner. 
+
+For the Wellness Factors of Cities Dataset:
+These include bar graphs for the following relevant wellness factors as per states in the United States:
+1. High School Completion 
+2. Life Expectancy 
+3. Income Inequality 
+4. Neighborhood racial/ethnic segregation
+5. Racial/Ethnic Diversity 
+6. Unemployment 
+
+<img src="https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/main/images/f2.PNG" >
+Figure 2: Exploratory Data Analysis Page
+
+3. Hate Crime Distribution - Here we get to explore an overall view of the Hate Crime Distribution across the country, time, and race.
+
+3.1 Timeline of Hate Crime Across 30 Years -  This line graph shows the ascent and descent of the hate crime rate over the years 1990 to 2020. Furthermore, selecting only the years you are interested in exploring on the scale provided, will display the graph only for those particular years. 
+
+3.2 U.S Map - This is an interactive choropleth map that demonstrates the distribution of hate crime statistics across each state of the United States, this map is interlinked to a bar graph that shows the top 15 states. Selecting a state you are interested in, in the US Map will highlight the respective state in the Bar Graph.  
+
+3.3 Correlation between the Offender’s Race and the Victim’s Hate Crime Type - Exploring which offender's race promotes hate crime the most and which victim's group is the most harmed would be an intriguing point of view. This is accomplished by using a heat map to correlate both of these values.
+
+<img src="https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/main/images/f3.PNG">
+Figure 3: Hate Crime Distribution Page
+
+4. Clustering - In this section, we will be exploring clustering techniques on features such as Bias, Location, Offender Race, Crime, and Victim Type. DBSCAN and DensMAP algorithms were used to reduce the features and cluster the data. The visualizations display clusters based on the user-selected features. The addition of more features creates sparse clusters.
+
+<img src="https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/main/images/f4.PNG">
+Figure 4: Clustering Page 
+
+5. Feature Importance - In this section, we will be exploring the important features that impact hate crimes in US states. The bar graph shows the top features that influence hate crimes in the US. This graph can be customized to be displayed for the states and the feature the user is interested in. 
+
+<img src="https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/main/images/f5.PNG">
+Figure 5: Feature Importance Page 
+
+6. Exploring States and Cities - In this section, we will be exploring the states of the US. We will first explore the distribution of well-being factors in the state using a pie chart. Next, we will represent the overall hate crime cases in the state over the past 3 decades in the form of a line graph. This is followed by a bar graph that compares the hate crime rates across the various cities in the state. The line graph and bar graph are interlinked. This selection of a particular time period in the line graph displays the crime rates per city for those years. These visualizations can be further explored for the cities as well. 
+
+<img src="https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/main/images/f6.PNG">
+Figure 6: Exploring States and Cities 
+
+## App Working
+Through this project, we want to know how socioeconomic factors, particularly human well-being, have influenced hate crime patterns in the United States through the years. To begin, we'll look at the clustering of hate crimes, the relationship between the race of the offender and the race of the victim, and the feature importance of the well-being factors. Then there's the hate crime distribution and timeline across the United States, which leads to a closer look at each state, including aspects like well-being, hate crimes reported over time, and hate crime distribution across cities. Each state's depiction can also be studied further by its cities. These interactive visualizations and the insights we gained from them to answer our question are discussed in the following sections.
+
+<img src="https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/main/images/f7.PNG">
+Figure 7: Clustering on Hate Crimes 
+
+With the help of our clustering algorithm, we discerned the structure based on the groupings in the hate crimes dataset. Despite using a subsample of 1000 random points, our clustering algorithm was able to produce interpretable clusters that made sense. While each subsequent addition of features creates sparser clusters, we felt it was more informative to look at the clustering with two to three features because it cultivated a better understanding of the global and local structure of the data. Our analysis into the groupings as demonstrated by the 'Figure: Clustering on Hate Crimes' showed that Anti-Black or African American was the major bias expressed in most of these hate crime incidents, with these incidents occurring at Residences/Homes in the form of verbal assault or intimidation. Given that many of these incidents occur at Residentials/Homes as intimidation or verbal assault, we ascertain that these may be relatively isolated incidents that do not exhibit overly aggressive violent behavior, nor are they publicly displayed. As a result, many of these victims experience this type of aggression in their own homes and communities. We may even find that these incidents may usually go unnoticed and unreported. From our analysis, we may be underrepresenting the number of crimes like this simply through the limitation of our dataset. 
+
+Is there a correlation between the offender's race and the hate crime type of the victim? Answering this question would provide insight into the motivations and psychology of attacks on specific ethnic groups. The Victim's Ethnicity is represented on the x-axis, while the Offender's Race is shown on the y-axis in this heat map. The graph shows that most hate crimes are committed against African Americans, followed by attacks on the LGBTQ+ community, as corroborated by clustering. We also see that the most common offender is white, which may be since white people make up the bulk of the population in the United States. Crimes against African Americans committed by white offenders are the most serious type of hate crime, according to the below visualization.
+
+<img src="https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/main/images/f8.PNG">
+Figure 8: Correlation between Offender’s Race and Hate Crime Type 
+
+<img src="https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/main/images/f9.PNG">
+Figure 9: Hate Crime Statistics Over The Past 30 Years 
+
+The above visualization depicts the evolution of hate crime statistics in the United States over the last 20 years. The x-axis represents every year from 1991 to 2020, and the y-axis is the total number of cases. The sharp spikes and drops in hate crimes have been linked to major events that occurred in the United States. Some of these have had a good impact on reducing hate crime, while others have dramatically increased hate crime. Riots, presidential elections, policy decisions, and global pandemics are some of these events. The most concerning aspect of this graph is the never-before-seen surge in the number of incidents after the Covid-19 Pandemic began in 2019. This surge opens up the possibility of future research into the extent of the relationship between the occurrence of these significant events and the number of recorded hate crimes. This is discussed in further detail in the upcoming sections.
+
+<img src="https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/main/images/f10.PNG">
+Figure 10: Hate Crime Statistics Over The Past 30 Years 
+
+The color variation in the above Choropleth Map of the United States is based on the total number of cases in each state. California has the highest number of hate crime instances. We will look into the numerous socio-economic reasons that have led to California being the most targeted state for hate crimes.
+
+## Case Study In California 
+The state of California's well-being factors is depicted in the Pie-Chart below. The following are the factors that were analyzed:
+1 .High School Completion: The completion rate refers to the percentage of pupils who enroll in a high school program and complete it.
+Income Inequality: The degree to which income is distributed unequally throughout a population is income inequality. The more unequal the distribution, the greater the income disparity.
+2. Life Expectancy: Life expectancy is a statistical measure of how long a person is likely to live based on their birth year, present age, and other demographic parameters such as gender.
+3. Neighborhood racial/ethnic segregation: The spatial separation of two or more social groups within a given geographic area, such as a municipality, a county, or a metropolitan area, is referred to as residential segregation.
+4. Racial/ethnic diversity: The recognition and celebration of racial diversity are known as racial diversity. Diversity promotes differences within and between racial identities, recognizing the intersectionality of various groups such as "ethnicity, gender...age, national origin, religion, handicap, sexual orientation, financial level, education, marital status, language, and physical appearance."
+5. Unemployment: Unemployment is a circumstance in which a person who is actively looking for a job is unable to find work. Unemployment is a significant indicator of the economy's health.
+6. Uninsured: The population that does not have insurance.
+
+<img src="https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/main/images/f11.PNG">
+Figure 11: Well Being Factors Distribution in California 
+
+<img src="https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/main/images/f12.PNG">
+Figure 12: Well Being Factors Distribution in New York
+
+<img src="https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/main/images/f13.PNG">
+Figure 13: Well Being Factors Distribution in Wyoming
+
+While comparing crime across California, New York, and Wyoming, it is clear that racial/ ethnic diversity and neighborhood racial/ethnic segregation is the differentiating factor. So, with an increase in overall diversity within a state, the rate of hate crimes increases. Hence, states like California and New York with higher racial diversity have more crimes than Wyoming with a lesser racial diversity.
+
+Second, we look for patterns in the variations in the number of cases in California from 1991 to 2020. As a result, we may deduce that after 1997, the years 2001 and 2002 had the highest number of instances, while 2014 had the lowest. This rise after 2014 can be related to the outbreak of the covid-19 epidemic, which resulted in racial discrimination against Asians. Hate crimes against African Americans are remained frequent across the United States, closely followed by anti-LGBTQ+ hate crimes, according to the clustering and correlation. In addition, while there has been a steady decline in hate crime in recent years, the pandemic has once again pushed the surge in incidents to a dangerously steep level. California has the highest number of instances in the United States, owing to its diverse racial diversity and segregation throughout its neighborhoods. Furthermore, the majority of cases in each state occur in the most populous metropolitan areas. As a result, we might deduce that hate crimes are more likely in urban regions with a more diversified population. 
+<img src="https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/main/images/f14.PNG">
+Figure 14: Hate Crime Statistics Over Time in California 
+
+Lastly, we created a sorted bar graph of the distribution of the total number of cases across the top 10 cities in California to see how the hate crime rate varies across the state. In contrast to other cities, more urban locations such as Los Angeles, San Francisco, and San Diego are predicted to have a significantly high number of incidents as a result of this research. This is related to the feature importance, which stated that the more ethnic diversity, segregation, and life expectancy there are, the greater the hate crime rate.
+
+<img src="https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/main/images/f15.PNG">
+Figure 15: Exploring Cities in California 
+
+Hate crimes against African Americans are remained frequent across the United States, closely followed by anti-LGBTQ+ hate crimes, according to the clustering and correlation. In addition, while there has been a steady decline in hate crime in recent years, the pandemic has once again pushed the surge in incidents to a dangerously steep level. California has the highest number of instances in the United States, owing to its diverse racial diversity and segregation throughout its neighborhoods. Furthermore, the majority of cases in each state occur in the most populous metropolitan areas. As a result, we might deduce that hate crimes are more likely in urban regions with a more diversified population. 
 
 ## Discussion
+By analyzing hate crimes over the past three decades, it is evident that socio-economic factors play a significant role in the number of crimes committed per region. High racial/ ethnic diversities often lead to a very diverse crowd resulting in social tensions. This increase leads to increased cases of threats and intimidation against minority communities. Within the United States of America, the white community forms a majority. As a result, the prominent race of the offender is white. 
+
+Through clustering techniques, it was clear that intimidation and verbal assault are more prominent than physical assault or harm of any form. The cause of this is verbal disputes majorly happen at home and within neighborhoods where physical harm is not a preferred mode of solving disputes. 
+Another insight gained from our project was that important incidents were correlated to crime rates. The inauguration of President Obama significantly reduced crime rates in the US. On the other hand, the COVID-19 pandemic resulted in a surge in hate crimes. Anti-sexual orientation crimes have increased over the past few years. This increase could be a result of the LGBTQ Acts that came into place, causing a lot of social disturbance based on the values of society.
+
+One of the most interesting insights gained from this project was that despite movements such as black lives matter that tried to create awareness of the African American community, the crimes against this community have been a majority. This majority shows that social awareness is not enough in reducing crimes against this community. Rather, stricter enforcements need to be placed. Another insight gained from the project is that the race of the majority of offenders is unknown. This could be because the offenders have not been caught, the victim is unable to identify the race of the offender, or the offender's race was not reported with the crime. 
+
+One of our observations while implementing the project was that in the clustering, adding more features resulted in more dispersion. Clusters were not as dense as when the number of considered features was less. Another observation during the feature importance analysis was that not all features were significant to hate crime statistics contribution. Unemployment and high school graduation have little impact on hate crime, which is surprising given that education and employment are two of society's most crucial elements.
 
 ## Future Work
+Our application has much potential for extensive research and study into the topic of hate crimes. The application we developed gives a relatively high-level overview of the trends in hate crime patterns and the factors most correlated with those patterns. As a result, we hope that our application can be used to direct research to understand why hate crimes occur and what are the plausible solutions for it. 
+
+An area of research that can be further enhanced is to explore the psychology behind hate crimes and how different factors and reasonings form together based on aggression and bias. With this, first-hand accounts and personal testimony can help us better understand why and how people form their biases. By better understanding offenders and victims, we can develop solutions that challenge ingrained thought processes. As discussed before, hate crimes are multidimensional issues that are affected by several socioeconomic factors brought on by the increasing density of diverse people groups. Therefore, we can expect that answers may be very diverse and that hate crime may be driven by a myriad of issues.
+
+Another extension for this application is to look at effective solutions that go beyond what factors are most correlated with hate crime patterns. A simple solution would be to look at education and conclude that education is necessary to combat hate crime. However, from our analysis, hate crimes typically happen in areas where the average level of education is very high. Therefore, our solutions must confront notions in a way that creates real experiences that lie contrary to their own biases. An idea that came up in our discussions was to promote and encourage cultural exchanges so that communities can learn from one another. It forces a level of uneasiness that comes with operating beyond a comfort zone. Yet, we believe that this is an effective strategy to help confront hate-based crimes and aggression. We hope that our application can help explore additional strategies and develop effective programs and policies that can help address tensions in communities. 
+
+Overall, we expect that our application gives a good starting point in further exploration of the reasonings and motivations behind hate crimes. We hope that further research can be applied in this study and that the tools and algorithms developed here can be used to further understanding. Furthermore, our team hopes to continue to extend our work by examining and analyzing hate crimes in other countries, applying the same methodology we have here within another country’s context. The hope is to compile a larger dashboard of how hate crimes behave in other countries and compare across the world based on similar features and characteristics. 
+
+Additionally, our application can be refined by capturing the effect of other demographic metrics or simply with a larger dataset of hate crime incidents. A methodology that we wanted to apply, but didn’t find appropriate was to run a classification-based predictive model to determine if someone was more likely to commit a hate crime or be a victim of a hate crime. While we do acknowledge the ethical concerns, we explored the possibility that this task can be applied holistically to cities or regions to determine their susceptibility to a high rate of hate crimes. We aim to do so by looking at public policies, laws, acts, and other federal and state actions that can contribute to a high or lower rate of hate crimes. To do so, we will need additional data on these policies and we need to research additional algorithms and methodologies to analyze these types of data. We believe that this can enhance the insights and learnings of our current application and further our understanding of the characteristics of hate crimes. In the future, we hope that we can effectively combat hate crimes and biases and foster loving and supportive communities everywhere.
+
+## References 
+[1] EHRC. (2016). Research report 102: Causes and motivations of hate crime. https://www.equalityhumanrights.com/sites/default/files/research-report-102-causes-and-motivations-of-hate-crime.pdf
+
+[2] World Population Review. (2021). Safest Countries in the World 2020. Worldpopulationreview.com. https://worldpopulationreview.com/country-rankings/safest-countries-in-the-world
