@@ -22,7 +22,7 @@ Team division:
 - Project visualization – Neema, Swapnil, Natasha, Aaron
 - PPT – Neema
 - Report – Natasha, Neema, Aaron, Swapnil
-- Video - Natasha , Neema, Aaron, Swapnil
+- Video - Aaron
 
 ## Commentary
 During the project process we were fortunate to be able to work with a dataset that was comprehensive and covered a substantial portion of the years we wanted to look at for our project. This dataset, FBI Hate Crimes, formed the basis of our analysis and allowed us to combine it with our datasets such as our cities dataset regarding demographic information. Because it was a clean csv file, we didn't need to do too much data cleanup besides engineer our features for analysis. The main challenge we ran into was consolidating all our code as well as reducing the size of the data we are using. Streamlit ran into problems with charts utilizing a larger sample, so we therefore had to reduce the features in order to allow it to still compile in a reasonable amount of time. Overall, we are pleased with how our application turned out and we are delighted to present some of the functionality that we incorporated into our application.
