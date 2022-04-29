@@ -43,6 +43,7 @@ The App is divided into the following six sections:
 <img src="https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/e0b1cdeb424ba73ea6b2ed021f1b94a8f11435d2/images/f1.jpg">
 Figure 1: Home Page 
 
+
 2. Exploratory Data Analysis - Describing the Data Sources, including their provenance and why it was chosen. We also offer extra visuals for each data set used for data exploration.
 For the Hate Crime data set there are two Visualizations:
 2.1 Total Number of Crimes Recorded over the last 30 years in the United States represented as a sorted descending bar graph in the order of hate crime count in states. 
@@ -60,6 +61,7 @@ These include bar graphs for the following relevant wellness factors as per stat
 <img src="https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/e0b1cdeb424ba73ea6b2ed021f1b94a8f11435d2/images/f2.jpg" >
 Figure 2: Exploratory Data Analysis Page
 
+
 3. Hate Crime Distribution - Here we get to explore an overall view of the Hate Crime Distribution across the country, time, and race.
 
 3.1 Timeline of Hate Crime Across 30 Years -  This line graph shows the ascent and descent of the hate crime rate over the years 1990 to 2020. Furthermore, selecting only the years you are interested in exploring on the scale provided, will display the graph only for those particular years. 
@@ -71,26 +73,31 @@ Figure 2: Exploratory Data Analysis Page
 <img src="https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/e0b1cdeb424ba73ea6b2ed021f1b94a8f11435d2/images/fig3.jpg">
 Figure 3: Hate Crime Distribution Page
 
+
 4. Clustering - In this section, we will be exploring clustering techniques on features such as Bias, Location, Offender Race, Crime, and Victim Type. DBSCAN and DensMAP algorithms were used to reduce the features and cluster the data. The visualizations display clusters based on the user-selected features. The addition of more features creates sparse clusters.
 
 <img src="https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/e0b1cdeb424ba73ea6b2ed021f1b94a8f11435d2/images/fig4.jpg">
 Figure 4: Clustering Page 
+
 
 5. Feature Importance - In this section, we will be exploring the important features that impact hate crimes in US states. The bar graph shows the top features that influence hate crimes in the US. This graph can be customized to be displayed for the states and the feature the user is interested in. 
 
 <img src="https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/e0b1cdeb424ba73ea6b2ed021f1b94a8f11435d2/images/fig5.jpg">
 Figure 5: Feature Importance Page 
 
+
 6. Exploring States and Cities - In this section, we will be exploring the states of the US. We will first explore the distribution of well-being factors in the state using a pie chart. Next, we will represent the overall hate crime cases in the state over the past 3 decades in the form of a line graph. This is followed by a bar graph that compares the hate crime rates across the various cities in the state. The line graph and bar graph are interlinked. This selection of a particular time period in the line graph displays the crime rates per city for those years. These visualizations can be further explored for the cities as well. 
 
 <img src="https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/e0b1cdeb424ba73ea6b2ed021f1b94a8f11435d2/images/fig6.jpg">
 Figure 6: Exploring States and Cities 
+
 
 ## App Working
 Through this project, we want to know how socioeconomic factors, particularly human well-being, have influenced hate crime patterns in the United States through the years. To begin, we'll look at the clustering of hate crimes, the relationship between the race of the offender and the race of the victim, and the feature importance of the well-being factors. Then there's the hate crime distribution and timeline across the United States, which leads to a closer look at each state, including aspects like well-being, hate crimes reported over time, and hate crime distribution across cities. Each state's depiction can also be studied further by its cities. These interactive visualizations and the insights we gained from them to answer our question are discussed in the following sections.
 
 <img src="https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/e0b1cdeb424ba73ea6b2ed021f1b94a8f11435d2/images/fig7.jpg">
 Figure 7: Clustering on Hate Crimes 
+
 
 With the help of our clustering algorithm, we discerned the structure based on the groupings in the hate crimes dataset. Despite using a subsample of 1000 random points, our clustering algorithm was able to produce interpretable clusters that made sense. While each subsequent addition of features creates sparser clusters, we felt it was more informative to look at the clustering with two to three features because it cultivated a better understanding of the global and local structure of the data. Our analysis into the groupings as demonstrated by the 'Figure: Clustering on Hate Crimes' showed that Anti-Black or African American was the major bias expressed in most of these hate crime incidents, with these incidents occurring at Residences/Homes in the form of verbal assault or intimidation. Given that many of these incidents occur at Residentials/Homes as intimidation or verbal assault, we ascertain that these may be relatively isolated incidents that do not exhibit overly aggressive violent behavior, nor are they publicly displayed. As a result, many of these victims experience this type of aggression in their own homes and communities. We may even find that these incidents may usually go unnoticed and unreported. From our analysis, we may be underrepresenting the number of crimes like this simply through the limitation of our dataset. 
 
@@ -99,13 +106,16 @@ Is there a correlation between the offender's race and the hate crime type of th
 <img src="https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/e0b1cdeb424ba73ea6b2ed021f1b94a8f11435d2/images/fig8.jpg">
 Figure 8: Correlation between Offender’s Race and Hate Crime Type 
 
+
 <img src="https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/e0b1cdeb424ba73ea6b2ed021f1b94a8f11435d2/images/fig9.jpg">
 Figure 9: Hate Crime Statistics Over The Past 30 Years 
+
 
 The above visualization depicts the evolution of hate crime statistics in the United States over the last 20 years. The x-axis represents every year from 1991 to 2020, and the y-axis is the total number of cases. The sharp spikes and drops in hate crimes have been linked to major events that occurred in the United States. Some of these have had a good impact on reducing hate crime, while others have dramatically increased hate crime. Riots, presidential elections, policy decisions, and global pandemics are some of these events. The most concerning aspect of this graph is the never-before-seen surge in the number of incidents after the Covid-19 Pandemic began in 2019. This surge opens up the possibility of future research into the extent of the relationship between the occurrence of these significant events and the number of recorded hate crimes. This is discussed in further detail in the upcoming sections.
 
 <img src="https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/e0b1cdeb424ba73ea6b2ed021f1b94a8f11435d2/images/fig10.jpg">
 Figure 10: Hate Crime Statistics Over The Past 30 Years 
+
 
 The color variation in the above Choropleth Map of the United States is based on the total number of cases in each state. California has the highest number of hate crime instances. We will look into the numerous socio-economic reasons that have led to California being the most targeted state for hate crimes.
 
@@ -122,11 +132,14 @@ Income Inequality: The degree to which income is distributed unequally throughou
 <img src="https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/e0b1cdeb424ba73ea6b2ed021f1b94a8f11435d2/images/fig11.jpg">
 Figure 11: Well Being Factors Distribution in California 
 
+
 <img src="https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/e0b1cdeb424ba73ea6b2ed021f1b94a8f11435d2/images/fig12.jpg">
 Figure 12: Well Being Factors Distribution in New York
 
+
 <img src="https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/e0b1cdeb424ba73ea6b2ed021f1b94a8f11435d2/images/fig13.jpg">
 Figure 13: Well Being Factors Distribution in Wyoming
+
 
 While comparing crime across California, New York, and Wyoming, it is clear that racial/ ethnic diversity and neighborhood racial/ethnic segregation is the differentiating factor. So, with an increase in overall diversity within a state, the rate of hate crimes increases. Hence, states like California and New York with higher racial diversity have more crimes than Wyoming with a lesser racial diversity.
 
@@ -138,6 +151,7 @@ Lastly, we created a sorted bar graph of the distribution of the total number of
 
 <img src="https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/e0b1cdeb424ba73ea6b2ed021f1b94a8f11435d2/images/fig15.jpg">
 Figure 15: Exploring Cities in California 
+
 
 Hate crimes against African Americans are remained frequent across the United States, closely followed by anti-LGBTQ+ hate crimes, according to the clustering and correlation. In addition, while there has been a steady decline in hate crime in recent years, the pandemic has once again pushed the surge in incidents to a dangerously steep level. California has the highest number of instances in the United States, owing to its diverse racial diversity and segregation throughout its neighborhoods. Furthermore, the majority of cases in each state occur in the most populous metropolitan areas. As a result, we might deduce that hate crimes are more likely in urban regions with a more diversified population. 
 
