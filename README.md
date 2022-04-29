@@ -38,6 +38,12 @@ During the project process we were fortunate to be able to work with a dataset t
 
 - [X] Develop sketches/prototype of your project.
 
+### Summary Image 
+<img src="https://github.com/CMU-IDS-2022/final-project-crime-scene/blob/e0b1cdeb424ba73ea6b2ed021f1b94a8f11435d2/images/f1.jpg">
+Figure 1: Home Page 
+<br />
+<br />
+
 ### Final deliverables
 
 - [X] All code for the project should be in the repo.
